@@ -1,0 +1,15 @@
+{
+  "name": "WebCASE",
+  "version": "1.0.0",
+  "homepage": "https://github.com/WEBXICO-MX/WebCASE",
+  "authors": [
+    "WEBXICO-MX <weiss.uttab@gmail.com>"
+  ],
+  "description": "Aplicación web para el Centro de Atención al Sector Energético (CASE) de la Universidad Tecnológica de Tabasco (UTTAB) usando Spring Framework 4 con Hibernate 5",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "dependencies": {
+    "jquery-ui": "^1.11.4"
+  }
+}
