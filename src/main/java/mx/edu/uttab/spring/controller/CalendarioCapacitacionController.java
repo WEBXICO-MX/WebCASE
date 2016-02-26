@@ -1,4 +1,4 @@
-package mx.edu.uttab.spring;
+package mx.edu.uttab.spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

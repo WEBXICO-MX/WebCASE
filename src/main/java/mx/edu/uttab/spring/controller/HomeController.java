@@ -3,7 +3,7 @@
  * @author Roberto Eder Weiss Juárez
  * @see {@link http://webxico.blogspot.mx/}
  */
-package mx.edu.uttab.spring;
+package mx.edu.uttab.spring.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
