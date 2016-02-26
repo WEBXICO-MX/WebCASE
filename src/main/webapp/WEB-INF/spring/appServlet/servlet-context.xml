@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<beans:property name="driverClassName"
+			value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<beans:property name="url"
+			value="jdbc:sqlserver://192.168.2.19:1433;databaseName=WebCASE" />
+		<beans:property name="username" value="appCASE" />
+		<beans:property name="password" value="appCASE" />
+	</beans:bean>
+
+	<!-- Hibernate 5 SessionFactory Bean definition -->
+	<beans:bean id="hibernate5AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="packagesToScan" value="mx.edu.uttab.spring.model" />
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect
+				</beans:prop>
+				<beans:prop key="hibernate.show_sql">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="sectorProductivoDAO"
+		class="mx.edu.uttab.spring.dao.SectorProductivoImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="sectorProductivoService"
+		class="mx.edu.uttab.spring.service.SectorProductivoServiceImpl">
+		<beans:property name="sectorProductivoDAO" ref="sectorProductivoDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="tipoCapacitacionDAO"
+		class="mx.edu.uttab.spring.dao.TipoCapacitacionDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="tipoCapacitacionService"
+		class="mx.edu.uttab.spring.service.TipoCapacitacionServiceImpl">
+		<beans:property name="tipoCapacitacionDAO" ref="tipoCapacitacionDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="tipoInscripcionDAO"
+		class="mx.edu.uttab.spring.dao.TipoInscripcionDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="tipoInscripcionService"
+		class="mx.edu.uttab.spring.service.TipoInscripcionServiceImpl">
+		<beans:property name="tipoInscripcionDAO" ref="tipoInscripcionDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="usuarioDAO" class="mx.edu.uttab.spring.dao.UsuarioDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="usuarioService"
+		class="mx.edu.uttab.spring.service.UsuarioServiceImpl">
+		<beans:property name="usuarioDAO" ref="usuarioDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="statusDAO" class="mx.edu.uttab.spring.dao.StatusDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="statusService"
+		class="mx.edu.uttab.spring.service.StatusServiceImpl">
+		<beans:property name="statusDAO" ref="statusDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="capacitacionDAO" class="mx.edu.uttab.spring.dao.CapacitacionDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="capacitacionService"
+		class="mx.edu.uttab.spring.service.CapacitacionServiceImpl">
+		<beans:property name="capacitacionDAO" ref="capacitacionDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="tipoMedioComunicacionDAO"
+		class="mx.edu.uttab.spring.dao.TipoMedioComunicacionDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="tipoMedioComunicacionService"
+		class="mx.edu.uttab.spring.service.TipoMedioComunicacionServiceImpl">
+		<beans:property name="tipoMedioComunicacionDAO" ref="tipoMedioComunicacionDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="empresaDAO" class="mx.edu.uttab.spring.dao.EmpresaDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="empresaService"
+		class="mx.edu.uttab.spring.service.EmpresaServiceImpl">
+		<beans:property name="empresaDAO" ref="empresaDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="calendarioCapacitacionDAO"
+		class="mx.edu.uttab.spring.dao.CalendarioCapacitacionDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="calendarioCapacitacionService"
+		class="mx.edu.uttab.spring.service.CalendarioCapacitacionServiceImpl">
+		<beans:property name="calendarioCapacitacionDAO" ref="calendarioCapacitacionDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="personaDAO" class="mx.edu.uttab.spring.dao.PersonaDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="personaService"
+		class="mx.edu.uttab.spring.service.PersonaServiceImpl">
+		<beans:property name="personaDAO" ref="personaDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="medioComunicacionDAO"
+		class="mx.edu.uttab.spring.dao.MedioComunicacionDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="medioComunicacionService"
+		class="mx.edu.uttab.spring.service.MedioComunicacionServiceImpl">
+		<beans:property name="medioComunicacionDAO" ref="medioComunicacionDAO"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="registroCapacitacionDAO"
+		class="mx.edu.uttab.spring.dao.RegistroCapacitacionDAOImpl">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="registroCapacitacionService"
+		class="mx.edu.uttab.spring.service.RegistroCapacitacionServiceImpl">
+		<beans:property name="registroCapacitacionDAO" ref="registroCapacitacionDAO"></beans:property>
+	</beans:bean>
+
+	<context:component-scan base-package="mx.edu.uttab.spring" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<beans:property name="sessionFactory"
+			ref="hibernate5AnnotatedSessionFactory" />
+	</beans:bean>
+
+
+</beans:beans>
+
