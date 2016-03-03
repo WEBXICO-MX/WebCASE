@@ -9,18 +9,10 @@
 <title>Calendario de capacitaciones| Create</title>
 <meta charset="UTF-8">
 <spring:url value="/resources/css/case.css" var="caseCSS" />
-<spring:url
-	value="/resources/bower_components/jquery-ui/themes/blitzer/jquery-ui.min.css"
-	var="jqueryUICSS" />
-<spring:url
-	value="/resources/bower_components/jquery/dist/jquery.min.js"
-	var="jquery" />
-<spring:url
-	value="/resources/bower_components/jquery-ui/jquery-ui.min.js"
-	var="jqueryUI" />
-<spring:url
-	value="/resources/bower_components/jquery-ui/ui/i18n/datepicker-es.js"
-	var="i18n" />
+<spring:url value="/resources/bower_components/jquery-ui/themes/blitzer/jquery-ui.min.css" var="jqueryUICSS" />
+<spring:url value="/resources/bower_components/jquery/dist/jquery.min.js" var="jquery" />
+<spring:url value="/resources/bower_components/jquery-ui/jquery-ui.min.js" var="jqueryUI" />
+<spring:url value="/resources/bower_components/jquery-ui/ui/i18n/datepicker-es.js" var="i18n" />
 <link href="${caseCSS}" rel="stylesheet" />
 <link href="${jqueryUICSS}" rel="stylesheet" />
 <script src="${jquery}"></script>
@@ -49,13 +41,13 @@
 				<td><form:label path="fecha_inicio">
 						<spring:message text="Fecha inicio" />
 					</form:label></td>
-				<td><form:input path="fecha_inicio" type="date"/></td>
+				<td><form:input path="fecha_inicio" cssClass="date-picker" size="10" readonly="true"/></td>
 			</tr>
 			<tr>
 				<td><form:label path="fecha_fin">
 						<spring:message text="Fecha fin" />
 					</form:label></td>
-				<td><form:input path="fecha_fin" type="date"/></td>
+				<td><form:input path="fecha_fin" cssClass="date-picker" size="10" readonly="true"/></td>
 			</tr>
 			<tr>
 				<td><form:label path="activo">
@@ -79,7 +71,7 @@
 				yearRange : "-0:+10",
 				changeMonth : true,
 				changeYear : true,
-				dateFormat : 'dd/mm/yy',
+				dateFormat : 'yy-mm-dd'
 			});
 
 		});
