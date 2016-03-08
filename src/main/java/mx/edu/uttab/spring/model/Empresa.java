@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "empresas")
 public class Empresa {
@@ -28,6 +30,7 @@ public class Empresa {
 	private SectorProductivo sector_productivo_id;
 	private String nombre;
 	private boolean activo;
+	@JsonIgnore
 	@OneToMany(mappedBy = "empresa_id", cascade = CascadeType.ALL)
 	private List<RegistroCapacitacion> registro_capacitaciones;
 

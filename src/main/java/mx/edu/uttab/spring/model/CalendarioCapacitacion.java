@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "calendarios_capacitaciones")
 public class CalendarioCapacitacion {
@@ -30,6 +32,7 @@ public class CalendarioCapacitacion {
 	private Date fecha_inicio;
 	private Date fecha_fin;
 	private boolean activo;
+	@JsonIgnore
 	@OneToMany(mappedBy = "calendario_capacitacion_id", cascade = CascadeType.ALL)
 	private List<RegistroCapacitacion> registro_capacitaciones;
 

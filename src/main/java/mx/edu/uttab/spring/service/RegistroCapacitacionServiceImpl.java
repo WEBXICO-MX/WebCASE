@@ -44,6 +44,13 @@ public class RegistroCapacitacionServiceImpl implements RegistroCapacitacionServ
 
 	@Override
 	@Transactional
+	public List<RegistroCapacitacion> listRegistroCapacitacionByStatus(int status) {
+		// TODO Auto-generated method stub
+		return this.registroCapacitacionDAO.listRegistroCapacitacionByStatus(status);
+	}
+
+	@Override
+	@Transactional
 	public RegistroCapacitacion getRegistroCapacitacionById(int id) {
 		// TODO Auto-generated method stub
 		return this.registroCapacitacionDAO.getRegistroCapacitacionById(id);

@@ -15,6 +15,8 @@ public interface RegistroCapacitacionService {
 	public void updateRegistroCapacitacion(RegistroCapacitacion rc);
 
 	public List<RegistroCapacitacion> listRegistroCapacitacion();
+	
+	public List<RegistroCapacitacion> listRegistroCapacitacionByStatus(int status);
 
 	public RegistroCapacitacion getRegistroCapacitacionById(int id);
 

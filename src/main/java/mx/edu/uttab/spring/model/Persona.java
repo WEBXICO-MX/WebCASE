@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "personas")
 public class Persona {
@@ -28,8 +30,10 @@ public class Persona {
 	private Date fecha_nacimiento;
 	private String sexo;
 	private boolean activo;
+	@JsonIgnore
 	@OneToMany(mappedBy = "persona_id", cascade = CascadeType.ALL)
 	private List<MedioComunicacion> medios_comunicacion;
+	@JsonIgnore
 	@OneToMany(mappedBy = "persona_id", cascade = CascadeType.ALL)
 	private List<RegistroCapacitacion> registro_capacitaciones;
 

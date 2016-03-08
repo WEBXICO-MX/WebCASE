@@ -49,6 +49,17 @@ public class RegistroCapacitacionDAOImpl implements RegistroCapacitacionDAO {
 		}
 		return RegistroCapacitacionList;
 	}
+	
+	@Override
+	public List<RegistroCapacitacion> listRegistroCapacitacionByStatus(int status) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from RegistroCapacitacion where status_id.id = :status_id";
+		List<RegistroCapacitacion> RegistroCapacitacionList = session.createQuery(sql).setInteger("status_id", status).list();
+		for (RegistroCapacitacion rc : RegistroCapacitacionList) {
+			logger.info("RegistroCapacitacion List::" + rc);
+		}
+		return RegistroCapacitacionList;
+	}
 
 	@Override
 	public RegistroCapacitacion getRegistroCapacitacionById(int id) {
@@ -68,5 +79,7 @@ public class RegistroCapacitacionDAOImpl implements RegistroCapacitacionDAO {
 		logger.info("RegistroCapacitacion deleted successfully, RegistroCapacitacion details=" + rc);
 
 	}
+
+	
 
 }
