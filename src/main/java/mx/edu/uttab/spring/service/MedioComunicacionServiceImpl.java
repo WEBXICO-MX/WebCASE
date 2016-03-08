@@ -37,6 +37,13 @@ public class MedioComunicacionServiceImpl implements MedioComunicacionService {
 
 	@Override
 	@Transactional
+	public List<MedioComunicacion> listMedioComunicacionByPersona(int persona_id) {
+		// TODO Auto-generated method stub
+		return this.medioComunicacionDAO.listMedioComunicacionByPersona(persona_id);
+	}
+
+	@Override
+	@Transactional
 	public List<MedioComunicacion> listMedioComunicacion() {
 		// TODO Auto-generated method stub
 		return this.medioComunicacionDAO.listMedioComunicacion();

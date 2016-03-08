@@ -52,6 +52,17 @@ public class MedioComunicacionDAOImpl implements MedioComunicacionDAO {
 	}
 
 	@Override
+	public List<MedioComunicacion> listMedioComunicacionByPersona(int persona_id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from MedioComunicacion where persona_id.id = :personaId";
+		List<MedioComunicacion> MedioComunicacionList = session.createQuery(sql).setInteger("personaId", persona_id).list();
+		for (MedioComunicacion mc : MedioComunicacionList) {
+			logger.info("MedioComunicacion List::" + mc);
+		}
+		return MedioComunicacionList;
+	}
+
+	@Override
 	public MedioComunicacion getMedioComunicacionById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		MedioComunicacion mc = (MedioComunicacion) session.load(MedioComunicacion.class, new Integer(id));

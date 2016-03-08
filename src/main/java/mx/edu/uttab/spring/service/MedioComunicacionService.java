@@ -16,6 +16,8 @@ public interface MedioComunicacionService {
 
 	public List<MedioComunicacion> listMedioComunicacion();
 
+	public List<MedioComunicacion> listMedioComunicacionByPersona(int persona_id);
+
 	public MedioComunicacion getMedioComunicacionById(int id);
 
 	public void removeMedioComunicacion(int id);

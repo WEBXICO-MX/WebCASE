@@ -5,6 +5,9 @@
  */
 package mx.edu.uttab.spring.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,8 +22,10 @@ import mx.edu.uttab.spring.service.RegistroCapacitacionService;
 import mx.edu.uttab.spring.service.StatusService;
 import mx.edu.uttab.spring.service.CalendarioCapacitacionService;
 import mx.edu.uttab.spring.service.EmpresaService;
+import mx.edu.uttab.spring.service.MedioComunicacionService;
 import mx.edu.uttab.spring.service.PersonaService;
 import mx.edu.uttab.spring.service.TipoInscripcionService;
+
 @Controller
 public class RegistroCapacitacionController {
 	private RegistroCapacitacionService registroCapacitacionService;
@@ -29,6 +34,7 @@ public class RegistroCapacitacionController {
 	private PersonaService personaService;
 	private EmpresaService empresaService;
 	private StatusService statusService;
+	private MedioComunicacionService medioComunicacionService;
 
 	@Autowired(required = true)
 	@Qualifier(value = "registroCapacitacionService")
@@ -66,6 +72,12 @@ public class RegistroCapacitacionController {
 		this.statusService = statusService;
 	}
 
+	@Autowired(required = true)
+	@Qualifier(value = "medioComunicacionService")
+	public void setMedioComunicacionService(MedioComunicacionService medioComunicacionService) {
+		this.medioComunicacionService = medioComunicacionService;
+	}
+
 	@RequestMapping(value = "/registroscapacitaciones", method = RequestMethod.GET)
 	public String index(Model model) {
 		model.addAttribute("listRegistroCapacitacion", this.registroCapacitacionService.listRegistroCapacitacion());
@@ -74,8 +86,12 @@ public class RegistroCapacitacionController {
 
 	@RequestMapping(value = "/registroscapacitaciones/new", method = RequestMethod.GET)
 	public String create(Model model) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(new Date());
+		model.addAttribute("date", date);
 		model.addAttribute("registroCapacitacion", new RegistroCapacitacion());
-		model.addAttribute("listCalendarioCapacitacion",this.calendarioCapacitacionService.listCalendarioCapacitacion());
+		model.addAttribute("listCalendarioCapacitacion",
+				this.calendarioCapacitacionService.listCalendarioCapacitacion());
 		model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
 		model.addAttribute("listPersona", this.personaService.listPersona());
 		model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
@@ -94,14 +110,18 @@ public class RegistroCapacitacionController {
 			this.registroCapacitacionService.updateRegistroCapacitacion(rc);
 		}
 
-		return "redirect:/registroscapacitaciones";
+		return "redirect:/registroscapacitaciones/mailbox";
 
 	}
 
 	@RequestMapping("/registroscapacitaciones/{id}/edit")
 	public String edit(@PathVariable("id") int id, Model model) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(new Date());
+		model.addAttribute("date", date);
 		model.addAttribute("registroCapacitacion", this.registroCapacitacionService.getRegistroCapacitacionById(id));
-		model.addAttribute("listCalendarioCapacitacion",this.calendarioCapacitacionService.listCalendarioCapacitacion());
+		model.addAttribute("listCalendarioCapacitacion",
+				this.calendarioCapacitacionService.listCalendarioCapacitacion());
 		model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
 		model.addAttribute("listPersona", this.personaService.listPersona());
 		model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
@@ -113,5 +133,25 @@ public class RegistroCapacitacionController {
 	public String destroy(@PathVariable("id") int id) {
 		this.registroCapacitacionService.removeRegistroCapacitacion(id);
 		return "redirect:/registroscapacitaciones";
+	}
+
+	@RequestMapping(value = "/registroscapacitaciones/mailbox", method = RequestMethod.GET)
+	public String mailbox() {
+		return "registroCapacitaciones/mailbox";
+	}
+
+	@RequestMapping(value = "/registroscapacitaciones/mailbox_ajax/{sts}", method = RequestMethod.GET)
+	public String mailboxAjax(@PathVariable("sts") int sts, Model model) {
+		model.addAttribute("listRegistroCapacitacion",
+				this.registroCapacitacionService.listRegistroCapacitacionByStatus(sts));
+		return "registroCapacitaciones/mailbox_ajax";
+	}
+
+	@RequestMapping(value = "/registroscapacitaciones/mailbox_id/{id}", method = RequestMethod.GET)
+	public String mailboxById(@PathVariable("id") int id, Model model) {
+		model.addAttribute("registroCapacitacion", this.registroCapacitacionService.getRegistroCapacitacionById(id));
+		model.addAttribute("listMedioComunicacion", this.medioComunicacionService.listMedioComunicacionByPersona(
+				this.registroCapacitacionService.getRegistroCapacitacionById(id).getPersona_id().getId()));
+		return "registroCapacitaciones/mailbox_id";
 	}
 }
