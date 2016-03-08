@@ -43,6 +43,13 @@ public class CapacitacionServiceImpl implements CapacitacionService {
 
 	@Override
 	@Transactional
+	public List<Capacitacion> listCapacitacionByTipo(int tipo) {
+		// TODO Auto-generated method stub
+		return this.capacitacionDAO.listCapacitacionByTipo(tipo);
+	}
+
+	@Override
+	@Transactional
 	public Capacitacion getCapacitacionById(int id) {
 		return this.capacitacionDAO.getCapacitacionById(id);
 	}

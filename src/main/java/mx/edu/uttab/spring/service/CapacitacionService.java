@@ -16,6 +16,8 @@ public interface CapacitacionService {
 
 	public List<Capacitacion> listCapacitacion();
 
+	public List<Capacitacion> listCapacitacionByTipo(int tipo);
+
 	public Capacitacion getCapacitacionById(int id);
 
 	public void removeCapacitacion(int id);

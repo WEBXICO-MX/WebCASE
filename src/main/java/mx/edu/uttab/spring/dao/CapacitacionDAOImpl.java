@@ -49,6 +49,15 @@ public class CapacitacionDAOImpl implements CapacitacionDAO {
 	}
 
 	@Override
+	public List<Capacitacion> listCapacitacionByTipo(int tipo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from Capacitacion where tipo_capacitacion_id.id =  :tipoCapacitacion order by id desc";
+		List<Capacitacion> listCapacitacion = session.createQuery(sql).setInteger("tipoCapacitacion", tipo).list();
+		logger.info("listCapacitacion size: " + listCapacitacion.size());
+		return listCapacitacion;
+	}
+
+	@Override
 	public Capacitacion getCapacitacionById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Capacitacion c = (Capacitacion) session.load(Capacitacion.class, new Integer(id));
