@@ -93,7 +93,7 @@
 		$(document).ready(function() {
 
 			$(".date-picker").datepicker({
-				yearRange : "-0:+10",
+				yearRange : "-50:+0",
 				changeMonth : true,
 				changeYear : true,
 				dateFormat : 'yy-mm-dd'
