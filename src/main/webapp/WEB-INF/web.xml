@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<description>WebCASE with Spring 4 and Hibernate 5</description>
-    <display-name>WebCASE with Spring and Hibernate 5</display-name>
+    <display-name>WebCASE with Spring 4 and Hibernate 5</display-name>
     <session-config>
         <session-timeout>
             30
