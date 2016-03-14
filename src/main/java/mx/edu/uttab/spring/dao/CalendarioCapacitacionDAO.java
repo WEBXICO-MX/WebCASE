@@ -16,6 +16,8 @@ public interface CalendarioCapacitacionDAO {
 
 	public List<CalendarioCapacitacion> listCalendarioCapacitacion();
 
+	public List<CalendarioCapacitacion> listCalendarioCapacitacionByCapacitacion(int capacitacion_id);
+
 	public CalendarioCapacitacion getCalendarioCapacitacionById(int id);
 
 	public void removeCalendarioCapacitacion(int id);

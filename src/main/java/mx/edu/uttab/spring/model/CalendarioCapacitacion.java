@@ -18,8 +18,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "calendarios_capacitaciones")
 public class CalendarioCapacitacion {
@@ -52,7 +55,7 @@ public class CalendarioCapacitacion {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	@JsonBackReference
 	public Capacitacion getCapacitacion_id() {
 		return capacitacion_id;
 	}

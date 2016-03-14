@@ -45,7 +45,7 @@ public class TipoCapacitacionDAOImpl implements TipoCapacitacionDAO {
 	@Override
 	public List<TipoCapacitacion> listTipoCapacitacion() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<TipoCapacitacion> TipoCapacitacionList = session.createQuery("from TipoCapacitacion").list();
+		List<TipoCapacitacion> TipoCapacitacionList = session.createQuery("from TipoCapacitacion order by id desc").list();
 		logger.info("TipoCapacitacionList size : " + TipoCapacitacionList.size());
 		return TipoCapacitacionList;
 	}

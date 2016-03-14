@@ -49,9 +49,19 @@ public class CalendarioCapacitacionDAOImpl implements CalendarioCapacitacionDAO 
 	}
 
 	@Override
+	public List<CalendarioCapacitacion> listCalendarioCapacitacionByCapacitacion(int capacitacion_id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from CalendarioCapacitacion where capacitacion_id.id = :capacitacionId order by id desc";
+		List<CalendarioCapacitacion> listCalendarioCapacitacion = session.createQuery(sql).setInteger("capacitacionId", capacitacion_id).list();
+		logger.info("listCalendarioCapacitacion size: " + listCalendarioCapacitacion.size());
+		return listCalendarioCapacitacion;
+	}
+
+	@Override
 	public CalendarioCapacitacion getCalendarioCapacitacionById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		CalendarioCapacitacion cc = (CalendarioCapacitacion) session.load(CalendarioCapacitacion.class, new Integer(id));
+		CalendarioCapacitacion cc = (CalendarioCapacitacion) session.load(CalendarioCapacitacion.class,
+				new Integer(id));
 		logger.info("CalendarioCapacitacion cargado, CalendarioCapacitacion Detalle " + cc);
 		return cc;
 	}
@@ -59,7 +69,8 @@ public class CalendarioCapacitacionDAOImpl implements CalendarioCapacitacionDAO 
 	@Override
 	public void removeCalendarioCapacitacion(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		CalendarioCapacitacion cc = (CalendarioCapacitacion) session.load(CalendarioCapacitacion.class, new Integer(id));
+		CalendarioCapacitacion cc = (CalendarioCapacitacion) session.load(CalendarioCapacitacion.class,
+				new Integer(id));
 		if (cc != null) {
 			session.delete(cc);
 		}

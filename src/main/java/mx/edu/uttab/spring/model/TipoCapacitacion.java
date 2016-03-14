@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "tipos_capacitaciones")
@@ -25,8 +27,8 @@ public class TipoCapacitacion {
 	private int id;
 	private String nombre;
 	private boolean activo;
-	@JsonIgnore
-	@OneToMany(mappedBy = "tipo_capacitacion_id", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "tipo_capacitacion_id", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Capacitacion> capacitaciones;
 
 	public TipoCapacitacion() {
@@ -59,7 +61,7 @@ public class TipoCapacitacion {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-
+	@JsonManagedReference
 	public List<Capacitacion> getCapacitaciones() {
 		return capacitaciones;
 	}

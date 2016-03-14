@@ -43,6 +43,13 @@ public class CalendarioCapacitacionServiceImpl implements CalendarioCapacitacion
 
 	@Override
 	@Transactional
+	public List<CalendarioCapacitacion> listCalendarioCapacitacionByCapacitacion(int capacitacion_id) {
+		// TODO Auto-generated method stub
+		return this.calendarioCursoDAO.listCalendarioCapacitacionByCapacitacion(capacitacion_id);
+	}
+
+	@Override
+	@Transactional
 	public CalendarioCapacitacion getCalendarioCapacitacionById(int id) {
 		return this.calendarioCursoDAO.getCalendarioCapacitacionById(id);
 	}
