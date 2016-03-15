@@ -1,3 +1,8 @@
+/**
+ *
+ * @author Roberto Eder Weiss Juárez
+ * @see {@link http://webxico.blogspot.mx/}
+ */
 package mx.edu.uttab.spring.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
