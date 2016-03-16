@@ -30,13 +30,13 @@ public class PersonaRestController {
 	}
 
 	@RequestMapping(value = "/rest/persona", method = RequestMethod.POST)
-	public ResponseEntity<Void> createPersona(@RequestBody Persona p, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Persona> createPersona(@RequestBody Persona p, UriComponentsBuilder ucBuilder) {
 System.out.println("Entre a /rest/persona");
 		personaService.addPersona(p);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/rest/personas/{id}").buildAndExpand(p.getId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<Persona>(p, HttpStatus.CREATED);
 	}
 
 }

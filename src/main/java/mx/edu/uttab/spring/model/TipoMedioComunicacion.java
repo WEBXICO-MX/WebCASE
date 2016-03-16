@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tipos_medios_comunicacion")
 public class TipoMedioComunicacion {
@@ -24,6 +26,7 @@ public class TipoMedioComunicacion {
 	private String nombre;
 	private String img;
 	private boolean activo;
+	@JsonIgnore
 	@OneToMany(mappedBy = "tipo_medio_comunicacion_id", cascade = CascadeType.ALL)
 	private List<MedioComunicacion> medios_comunicacion;
 
