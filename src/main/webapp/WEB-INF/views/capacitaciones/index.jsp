@@ -27,7 +27,8 @@
 				<th>Descripción</th>
 				<th>Tipo Capacitación</th>
 				<th>Activo</th>
-				<th colspan="2">Operaciones</th>
+				<th>Operaciones</th>
+				<!--  <th colspan="2">Operaciones</th> -->
 			</tr>
 			<c:forEach items="${listCapacitacion}" var="capacitacion">
 				<tr>
@@ -40,10 +41,8 @@
 							<c:otherwise>No</c:otherwise>
 						</c:choose>
 					</td>
-					<td><a
-						href="<c:url value='/capacitaciones/${capacitacion.id}/edit' />">Edit</a></td>
-					<td><a
-						href="<c:url value='/capacitaciones/${capacitacion.id}/destroy' />">Delete</a></td>
+					<td><a	href="<c:url value='/capacitaciones/${capacitacion.id}/edit' />">Edit</a></td>
+					<!--  <td><a	href="<c:url value='/capacitaciones/${capacitacion.id}/destroy' />">Delete</a></td>-->
 				</tr>
 			</c:forEach>
 		</table>

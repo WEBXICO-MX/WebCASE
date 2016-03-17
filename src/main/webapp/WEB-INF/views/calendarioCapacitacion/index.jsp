@@ -26,7 +26,8 @@
 				<th>Fecha inicio</th>
 				<th>Fecha Fin</th>
 				<th>Activo</th>
-				<th colspan="2">Operaciones</th>
+				<th>Operaciones</th>
+				<!--  <th colspan="2">Operaciones</th>-->
 			</tr>
 			<c:forEach items="${listCalendarioCapacitacion}" var="calendarioCapacitacion">
 				<tr>
@@ -39,10 +40,8 @@
 							<c:otherwise>No</c:otherwise>
 						</c:choose>
 					</td>
-					<td><a
-						href="<c:url value='/calendarioscapacitaciones/${calendarioCapacitacion.id}/edit' />">Edit</a></td>
-					<td><a
-						href="<c:url value='/calendarioscapacitaciones/${calendarioCapacitacion.id}/destroy' />">Delete</a></td>
+					<td><a href="<c:url value='/calendarioscapacitaciones/${calendarioCapacitacion.id}/edit' />">Edit</a></td>
+					<!--  <td><a href="<c:url value='/calendarioscapacitaciones/${calendarioCapacitacion.id}/destroy' />">Delete</a></td>-->
 				</tr>
 			</c:forEach>
 		</table>

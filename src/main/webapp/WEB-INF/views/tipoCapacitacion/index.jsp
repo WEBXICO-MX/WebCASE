@@ -21,12 +21,13 @@
 		<a href="<c:url value='/' />">Back</a>
 	</h5>
 	<c:if test="${!empty listTipoCapacitacion}">
-		<table class="tg">
+		<table class="table tg">
 			<tr>
-				<th width="80">ID</th>
-				<th width="120">Nombre</th>
-				<th width="120">Activo</th>
-				<th width="120" colspan="2">Operaciones</th>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Activo</th>
+				<!-- <th colspan="2">Operaciones</th> -->
+				<th colspan="2">Operaciones</th>
 			</tr>
 			<c:forEach items="${listTipoCapacitacion}" var="tipoCapacitacion">
 				<tr>
@@ -37,10 +38,8 @@
 							<c:otherwise>No</c:otherwise>
 						</c:choose>
 				    </td>
-					<td><a
-						href="<c:url value='/tiposcapacitaciones/${tipoCapacitacion.id}/edit' />">Edit</a></td>
-					<td><a
-						href="<c:url value='/tiposcapacitaciones/${tipoCapacitacion.id}/destroy' />">Delete</a></td>
+					<td><a	href="<c:url value='/tiposcapacitaciones/${tipoCapacitacion.id}/edit' />">Edit</a></td>
+					<!--  <td><a	href="<c:url value='/tiposcapacitaciones/${tipoCapacitacion.id}/destroy' />">Delete</a></td>-->
 				</tr>
 			</c:forEach>
 		</table>

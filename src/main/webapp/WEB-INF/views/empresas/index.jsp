@@ -26,7 +26,8 @@
 				<th>Nombre</th>
 				<th>Sector Productivo</th>
 				<th>Activo</th>
-				<th colspan="2">Operaciones</th>
+				<!--  <th colspan="2">Operaciones</th>-->
+				<th>Operaciones</th>
 			</tr>
 			<c:forEach items="${listEmpresa}" var="empresa">
 				<tr>
@@ -38,8 +39,7 @@
 							<c:otherwise>No</c:otherwise>
 						</c:choose></td>
 					<td><a href="<c:url value='/empresas/${empresa.id}/edit' />">Edit</a></td>
-					<td><a
-						href="<c:url value='/empresas/${empresa.id}/destroy' />">Delete</a></td>
+					<!--  <td><a href="<c:url value='/empresas/${empresa.id}/destroy' />">Delete</a></td>-->
 				</tr>
 			</c:forEach>
 		</table>

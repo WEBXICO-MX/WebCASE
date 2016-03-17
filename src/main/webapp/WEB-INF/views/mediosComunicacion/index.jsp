@@ -27,7 +27,8 @@
 				<th>Persona</th>
 				<th>Tipo medio de comunicación</th>
 				<th>Activo</th>
-				<th colspan="2">Operaciones</th>
+				<!--  <th colspan="2">Operaciones</th>-->
+				<th>Operaciones</th>
 			</tr>
 			<c:forEach items="${listMedioComunicacion}" var="medioComunicacion">
 				<tr>
@@ -40,10 +41,8 @@
 							<c:otherwise>No</c:otherwise>
 						</c:choose>
 					</td>
-					<td><a
-						href="<c:url value='/medioscomunicacion/${medioComunicacion.id}/edit' />">Edit</a></td>
-					<td><a
-						href="<c:url value='/medioscomunicacion/${medioComunicacion.id}/destroy' />">Delete</a></td>
+					<td><a	href="<c:url value='/medioscomunicacion/${medioComunicacion.id}/edit' />">Edit</a></td>
+					<!--  <td><a	href="<c:url value='/medioscomunicacion/${medioComunicacion.id}/destroy' />">Delete</a></td>-->
 				</tr>
 			</c:forEach>
 		</table>

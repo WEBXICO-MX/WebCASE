@@ -27,7 +27,8 @@
 				<th>Fecha de nacimiento</th>
 				<th>Sexo</th>
 				<th>Activo</th>
-				<th colspan="2">Operaciones</th>
+				<th>Operaciones</th>
+				<!--  <th colspan="2">Operaciones</th>-->				
 			</tr>
 			<c:forEach items="${listPersona}" var="persona">
 				<tr>
@@ -40,8 +41,7 @@
 							<c:otherwise>No</c:otherwise>
 						</c:choose></td>
 					<td><a href="<c:url value='/personas/${persona.id}/edit' />">Edit</a></td>
-					<td><a
-						href="<c:url value='/personas/${persona.id}/destroy' />">Delete</a></td>
+					<!--  <td><ahref="<c:url value='/personas/${persona.id}/destroy' />">Delete</a></td>-->
 				</tr>
 			</c:forEach>
 		</table>

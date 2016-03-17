@@ -31,7 +31,8 @@
 				<th>Fecha de registro</th>
 				<th>Fecha de modificación</th>
 				<th>Activo</th>
-				<th colspan="2">Operaciones</th>
+				<!-- <th colspan="2">Operaciones</th> -->
+				<th>Operaciones</th>
 			</tr>
 			<c:forEach items="${listRegistroCapacitacion}" var="registroCapacitacion">
 				<tr>
@@ -48,10 +49,8 @@
 							<c:otherwise>No</c:otherwise>
 						</c:choose>
 					</td>
-					<td><a
-						href="<c:url value='/registroscapacitaciones/${registroCapacitacion.id}/edit' />">Edit</a></td>
-					<td><a
-						href="<c:url value='/registroscapacitaciones/${registroCapacitacion.id}/destroy' />">Delete</a></td>
+					<td><a href="<c:url value='/registroscapacitaciones/${registroCapacitacion.id}/edit' />">Edit</a></td>
+					<!--<td><a href="<c:url value='/registroscapacitaciones/${registroCapacitacion.id}/destroy' />">Delete</a></td>-->
 				</tr>
 			</c:forEach>
 		</table>

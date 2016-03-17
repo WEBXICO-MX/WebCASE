@@ -20,14 +20,15 @@
 		<a href="<c:url value='/' />">Back</a>
 	</h5>
 	<c:if test="${!empty listUsuario}">
-		<table class="tg">
+		<table class="table tg">
 			<tr>
-				<th width="80">ID</th>
-				<th width="120">Nombre</th>
-				<th width="120">Login</th>
-				<th width="120">Password</th>
-				<th width="120">Activo</th>
-				<th width="120" colspan="2">Operaciones</th>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Login</th>
+				<th>Password</th>
+				<th>Activo</th>
+				<!-- <th colspan="2">Operaciones</th> -->
+				<th colspan="2">Operaciones</th>
 			</tr>
 			<c:forEach items="${listUsuario}" var="usuario">
 				<tr>
@@ -41,8 +42,7 @@
 						</c:choose>
 					</td>
 					<td><a href="<c:url value='/usuarios/${usuario.id}/edit' />">Edit</a></td>
-					<td><a
-						href="<c:url value='/usuarios/${usuario.id}/destroy' />">Delete</a></td>
+					<!--  <td><a	href="<c:url value='/usuarios/${usuario.id}/destroy' />">Delete</a></td>-->
 				</tr>
 			</c:forEach>
 		</table>
