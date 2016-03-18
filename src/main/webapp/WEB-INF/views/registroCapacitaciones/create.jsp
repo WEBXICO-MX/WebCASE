@@ -9,7 +9,19 @@
 <title>Registro a capacitación | Create</title>
 <meta charset="UTF-8">
 <spring:url value="/resources/css/case.css" var="caseCSS" />
+<spring:url value="/resources/bower_components/jquery-ui/themes/blitzer/jquery-ui.min.css" var="jqueryUICSS" />
+<spring:url value="/resources/bower_components/jquery/dist/jquery.min.js" var="jquery" />
+<spring:url value="/resources/bower_components/jquery-ui/jquery-ui.min.js" var="jqueryUI" />
+<spring:url value="/resources/bower_components/jquery-ui/ui/i18n/datepicker-es.js" var="i18n" />
+<spring:url value="/resources/bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css" var="jqueryTimePickerCSS" />
+<spring:url value="/resources/bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js" var="jqueryTimePicker" />
 <link href="${caseCSS}" rel="stylesheet" />
+<link href="${jqueryUICSS}" rel="stylesheet" />
+<link href="${jqueryTimePickerCSS}" rel="stylesheet" />
+<script src="${jquery}"></script>
+<script src="${jqueryUI}"></script>
+<script src="${i18n}"></script>
+<script src="${jqueryTimePicker}"></script>
 </head>
 <body>
 	<h1>Add a Registro a capacitación</h1>
@@ -78,13 +90,13 @@
 				<td><form:label path="fecha_registro">
 						<spring:message text="Fecha de registro" />
 					</form:label></td>
-				<td><form:input path="fecha_registro" size="10" maxlength="10" type="date"/></td>
+				<td><form:input path="fecha_registro" cssClass="date-picker" size="30" readonly="true"/></td>
 			</tr>
 			<tr>
 				<td><form:label path="fecha_modificacion">
 						<spring:message text="Fecha de modificacion" />
 					</form:label></td>
-				<td><form:input path="fecha_modificacion" size="10" maxlength="10" type="date"/></td>
+				<td><form:input path="fecha_modificacion" cssClass="date-picker" size="30" readonly="true"/></td>
 			</tr>
 			<tr>
 				<td><form:label path="activo">
@@ -101,5 +113,18 @@
 	<h5>
 		<a href="<c:url value='/registroscapacitaciones' />">Back</a>
 	</h5>
+			<script>
+		$(document).ready(function() {
+			
+			$(".date-picker").datetimepicker({
+				timeFormat:"HH:mm:ss.cZ",
+				yearRange : "-50:+0",
+				changeMonth : true,
+				changeYear : true,
+				dateFormat : 'yy-mm-dd'
+			});
+
+		});
+	</script>
 </body>
 </html>
