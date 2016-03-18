@@ -90,14 +90,14 @@
 				<td><form:label path="fecha_registro">
 						<spring:message text="Fecha de registro" />
 					</form:label></td>
-				<td><form:input path="fecha_registro" cssClass="date-picker" size="30" readonly="true"/></td>
+				<td><form:hidden path="fecha_registro" value="${date}"/></td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td><form:label path="fecha_modificacion">
 						<spring:message text="Fecha de modificacion" />
 					</form:label></td>
-				<td><form:input path="fecha_modificacion" cssClass="date-picker" size="30" readonly="true"/></td>
-			</tr>
+				<td><form:hidden path="fecha_modificacion" value="${date}"/></td>
+			</tr>-->
 			<tr>
 				<td><form:label path="activo">
 						<spring:message text="Activo" />
