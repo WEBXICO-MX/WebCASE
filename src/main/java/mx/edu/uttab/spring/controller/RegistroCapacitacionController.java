@@ -90,8 +90,7 @@ public class RegistroCapacitacionController {
 		String date = sdf.format(new Date());
 		model.addAttribute("date", date);
 		model.addAttribute("registroCapacitacion", new RegistroCapacitacion());
-		model.addAttribute("listCalendarioCapacitacion",
-				this.calendarioCapacitacionService.listCalendarioCapacitacion());
+		model.addAttribute("listCalendarioCapacitacion", this.calendarioCapacitacionService.listCalendarioCapacitacion());
 		model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
 		model.addAttribute("listPersona", this.personaService.listPersona());
 		model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
@@ -120,8 +119,7 @@ public class RegistroCapacitacionController {
 		String date = sdf.format(new Date());
 		model.addAttribute("date", date);
 		model.addAttribute("registroCapacitacion", this.registroCapacitacionService.getRegistroCapacitacionById(id));
-		model.addAttribute("listCalendarioCapacitacion",
-				this.calendarioCapacitacionService.listCalendarioCapacitacion());
+		model.addAttribute("listCalendarioCapacitacion",this.calendarioCapacitacionService.listCalendarioCapacitacion());
 		model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
 		model.addAttribute("listPersona", this.personaService.listPersona());
 		model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
@@ -149,6 +147,9 @@ public class RegistroCapacitacionController {
 
 	@RequestMapping(value = "/registroscapacitaciones/mailbox_id/{id}", method = RequestMethod.GET)
 	public String mailboxById(@PathVariable("id") int id, Model model) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(new Date());
+		model.addAttribute("date", date);
 		model.addAttribute("registroCapacitacion", this.registroCapacitacionService.getRegistroCapacitacionById(id));
 		model.addAttribute("listMedioComunicacion", this.medioComunicacionService.listMedioComunicacionByPersona(
 				this.registroCapacitacionService.getRegistroCapacitacionById(id).getPersona_id().getId()));
