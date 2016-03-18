@@ -1,24 +1,7 @@
-<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<% 
-Calendar now = Calendar.getInstance();
-// 2016-03-16 13:08:56.237
-//2016-03-17T15:24:54.000-06:00
-
-int anio = now.get(Calendar.YEAR);
-int mes = now.get(Calendar.MONTH) + 1;
-int dia = now.get(Calendar.DAY_OF_MONTH);
-
-int hora = now.get(Calendar.HOUR_OF_DAY);
-int minuto = now.get(Calendar.MINUTE);
-int segundo = now.get(Calendar.SECOND);
-int milisegundo = now.get(Calendar.MILLISECOND);
-
-String fecha_modificacion = ""+anio+"-"+(mes < 10 ? ("0"+mes):mes)+"-"+(dia < 10 ? ("0"+dia):dia)+"T"+(hora < 10 ? ("0"+hora):hora)+":"+(minuto < 10 ? ("0"+minuto):minuto)+":"+(segundo < 10 ? ("0"+segundo):segundo)+"."+milisegundo+"-06:00";
-%>
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	<h4 class="modal-title">Status: ${registroCapacitacion.status_id.nombre}</h4>
