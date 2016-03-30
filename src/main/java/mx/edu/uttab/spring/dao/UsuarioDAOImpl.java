@@ -6,7 +6,7 @@
 package mx.edu.uttab.spring.dao;
 
 import java.util.List;
-
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -53,6 +53,27 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		Usuario u = (Usuario) session.load(Usuario.class, new Integer(id));
 		logger.info("Usuario cargado, Usuario Detalle " + u);
+		return u;
+	}
+
+	@Override
+	public Usuario getUsuarioByLoginPassword(String login, String password) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from Usuario where login = :login and password = :password";
+		Query q = session.createQuery(sql);
+		q.setString("login", login);
+		q.setString("password", password);
+		List<Usuario> listUsuario = q.list();
+		Usuario u = null;
+
+		if (listUsuario.size() > 0) {
+			for (Usuario usr : listUsuario) {
+				u = usr;
+			}
+
+		}
+
+		logger.info("listUsuario size: " + listUsuario.size());
 		return u;
 	}
 

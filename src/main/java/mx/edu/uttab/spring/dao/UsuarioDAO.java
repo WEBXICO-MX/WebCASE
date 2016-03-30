@@ -18,5 +18,7 @@ public interface UsuarioDAO {
 
 	public Usuario getUsuarioById(int id);
 
+	public Usuario getUsuarioByLoginPassword(String login, String password);
+
 	public void removeUsuario(int id);
 }
