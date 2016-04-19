@@ -49,6 +49,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	@Transactional
+	public Usuario getUsuarioByLoginPassword(String login, String password) {
+		// TODO Auto-generated method stub
+		return this.usuarioDAO.getUsuarioByLoginPassword(login, password);
+	}
+
+	@Override
+	@Transactional
 	public void removeUsuario(int id) {
 		this.usuarioDAO.removeUsuario(id);
 

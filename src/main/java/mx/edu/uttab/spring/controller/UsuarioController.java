@@ -27,6 +27,20 @@ public class UsuarioController {
 		this.usuarioService = usuarioService;
 	}
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String form_login(Model model) {	
+		return "login";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@ModelAttribute("usuario") Usuario u) {	
+		Usuario usr = this.usuarioService.getUsuarioByLoginPassword(u.getLogin(), u.getPassword());
+		if(usr != null)
+		{ return "redirect:/home";}
+		else
+		{ return "redirect:/";}		
+	}
+	
 	@RequestMapping(value = "/usuarios", method = RequestMethod.GET)
 	public String index(Model model) {
 		model.addAttribute("listUsuario", this.usuarioService.listUsuarios());
