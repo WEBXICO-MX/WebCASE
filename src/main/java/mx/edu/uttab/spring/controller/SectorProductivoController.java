@@ -5,6 +5,9 @@
  */
 package mx.edu.uttab.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -30,42 +33,69 @@ public class SectorProductivoController {
 	}
 
 	@RequestMapping(value = "/sectoresproductivos", method = RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("listSectorProductivo", this.sectorProductivoService.listSectorProductivos());
-		return "sectorProductivo/index";
+	public String index(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("listSectorProductivo", this.sectorProductivoService.listSectorProductivos());
+			return "sectorProductivo/index";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/sectoresproductivos/new", method = RequestMethod.GET)
-	public String create(Model model) {
-		model.addAttribute("sectorProductivo", new SectorProductivo());
-		return "sectorProductivo/create";
+	public String create(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("sectorProductivo", new SectorProductivo());
+			return "sectorProductivo/create";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/sectoresproductivos/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("sectorProductivo") SectorProductivo sp) {
+	public String store(@ModelAttribute("sectorProductivo") SectorProductivo sp, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			if (sp.getId() == 0) {
+				this.sectorProductivoService.addSectorProductivo(sp);
+			} else {
+				this.sectorProductivoService.updateSectorProductivo(sp);
+			}
 
-		if (sp.getId() == 0) {
-			this.sectorProductivoService.addSectorProductivo(sp);
+			return "redirect:/sectoresproductivos";
 		} else {
-			this.sectorProductivoService.updateSectorProductivo(sp);
+			return "redirect:/";
 		}
-
-		return "redirect:/sectoresproductivos";
 
 	}
 
 	@RequestMapping("/sectoresproductivos/{id}/edit")
-	public String editPerson(@PathVariable("id") int id, Model model) {
-		model.addAttribute("sectorProductivo", this.sectorProductivoService.getSectorProductivoById(id));
-		model.addAttribute("listSectorProductivo", this.sectorProductivoService.listSectorProductivos());
-		return "sectorProductivo/edit";
+	public String editPerson(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("sectorProductivo", this.sectorProductivoService.getSectorProductivoById(id));
+			model.addAttribute("listSectorProductivo", this.sectorProductivoService.listSectorProductivos());
+			return "sectorProductivo/edit";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping("/sectoresproductivos/{id}/destroy")
-	public String removePerson(@PathVariable("id") int id) {
+	public String removePerson(@PathVariable("id") int id, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			this.sectorProductivoService.removeSectorProductivo(id);
+			return "redirect:/sectoresproductivos";
+		} else {
+			return "redirect:/";
+		}
 
-		this.sectorProductivoService.removeSectorProductivo(id);
-		return "redirect:/sectoresproductivos";
 	}
 
 }

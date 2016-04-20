@@ -17,7 +17,7 @@
 		<a href="<c:url value='/sectoresproductivos/new' />">New Sector Productivo</a>
 	</h4>
 	<h5>
-		<a href="<c:url value='/' />">Back</a>
+		<a href="<c:url value='/home' />">Back</a>
 	</h5>
 	<c:if test="${!empty listSectorProductivo}">
 		<table class="table tg">
@@ -47,7 +47,7 @@
 		<a href="<c:url value='/sectoresproductivos/new' />">New Sector Productivo</a>
 	</h4>
 	<h5>
-		<a href="<c:url value='/' />">Back</a>
+		<a href="<c:url value='/home' />">Back</a>
 	</h5>
 </body>
 </html>

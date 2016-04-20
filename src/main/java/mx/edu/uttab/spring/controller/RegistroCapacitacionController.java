@@ -8,6 +8,9 @@ package mx.edu.uttab.spring.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -79,80 +82,130 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones", method = RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("listRegistroCapacitacion", this.registroCapacitacionService.listRegistroCapacitacion());
-		return "registroCapacitaciones/index";
+	public String index(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("listRegistroCapacitacion", this.registroCapacitacionService.listRegistroCapacitacion());
+			return "registroCapacitaciones/index";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/new", method = RequestMethod.GET)
-	public String create(Model model) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String date = sdf.format(new Date());
-		model.addAttribute("date", date);
-		model.addAttribute("registroCapacitacion", new RegistroCapacitacion());
-		model.addAttribute("listCalendarioCapacitacion", this.calendarioCapacitacionService.listCalendarioCapacitacion());
-		model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
-		model.addAttribute("listPersona", this.personaService.listPersona());
-		model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
-		model.addAttribute("listStatus", this.statusService.listStatuss());
-		return "registroCapacitaciones/create";
+	public String create(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = sdf.format(new Date());
+			model.addAttribute("date", date);
+			model.addAttribute("registroCapacitacion", new RegistroCapacitacion());
+			model.addAttribute("listCalendarioCapacitacion",
+					this.calendarioCapacitacionService.listCalendarioCapacitacion());
+			model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
+			model.addAttribute("listPersona", this.personaService.listPersona());
+			model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
+			model.addAttribute("listStatus", this.statusService.listStatuss());
+			return "registroCapacitaciones/create";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("registroCapacitacion") RegistroCapacitacion rc) {
+	public String store(@ModelAttribute("registroCapacitacion") RegistroCapacitacion rc, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			if (rc.getId() == 0) {
+				// new person, add it
+				this.registroCapacitacionService.addRegistroCapacitacion(rc);
+			} else {
+				// existing person, call update
+				this.registroCapacitacionService.updateRegistroCapacitacion(rc);
+			}
 
-		if (rc.getId() == 0) {
-			// new person, add it
-			this.registroCapacitacionService.addRegistroCapacitacion(rc);
+			return "redirect:/registroscapacitaciones/mailbox";
 		} else {
-			// existing person, call update
-			this.registroCapacitacionService.updateRegistroCapacitacion(rc);
+			return "redirect:/";
 		}
-
-		return "redirect:/registroscapacitaciones/mailbox";
 
 	}
 
 	@RequestMapping("/registroscapacitaciones/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String date = sdf.format(new Date());
-		model.addAttribute("date", date);
-		model.addAttribute("registroCapacitacion", this.registroCapacitacionService.getRegistroCapacitacionById(id));
-		model.addAttribute("listCalendarioCapacitacion",this.calendarioCapacitacionService.listCalendarioCapacitacion());
-		model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
-		model.addAttribute("listPersona", this.personaService.listPersona());
-		model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
-		model.addAttribute("listStatus", this.statusService.listStatuss());
-		return "registroCapacitaciones/edit";
+	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = sdf.format(new Date());
+			model.addAttribute("date", date);
+			model.addAttribute("registroCapacitacion",
+					this.registroCapacitacionService.getRegistroCapacitacionById(id));
+			model.addAttribute("listCalendarioCapacitacion",
+					this.calendarioCapacitacionService.listCalendarioCapacitacion());
+			model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
+			model.addAttribute("listPersona", this.personaService.listPersona());
+			model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
+			model.addAttribute("listStatus", this.statusService.listStatuss());
+			return "registroCapacitaciones/edit";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping("/registroscapacitaciones/{id}/destroy")
-	public String destroy(@PathVariable("id") int id) {
-		this.registroCapacitacionService.removeRegistroCapacitacion(id);
-		return "redirect:/registroscapacitaciones";
+	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			this.registroCapacitacionService.removeRegistroCapacitacion(id);
+			return "redirect:/registroscapacitaciones";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/mailbox", method = RequestMethod.GET)
-	public String mailbox() {
-		return "registroCapacitaciones/mailbox";
+	public String mailbox(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			return "registroCapacitaciones/mailbox";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/mailbox_ajax/{sts}", method = RequestMethod.GET)
-	public String mailboxAjax(@PathVariable("sts") int sts, Model model) {
-		model.addAttribute("listRegistroCapacitacion",
-				this.registroCapacitacionService.listRegistroCapacitacionByStatus(sts));
-		return "registroCapacitaciones/mailbox_ajax";
+	public String mailboxAjax(@PathVariable("sts") int sts, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("listRegistroCapacitacion",
+					this.registroCapacitacionService.listRegistroCapacitacionByStatus(sts));
+			return "registroCapacitaciones/mailbox_ajax";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/mailbox_id/{id}", method = RequestMethod.GET)
-	public String mailboxById(@PathVariable("id") int id, Model model) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String date = sdf.format(new Date());
-		model.addAttribute("date", date);
-		model.addAttribute("registroCapacitacion", this.registroCapacitacionService.getRegistroCapacitacionById(id));
-		model.addAttribute("listMedioComunicacion", this.medioComunicacionService.listMedioComunicacionByPersona(
-				this.registroCapacitacionService.getRegistroCapacitacionById(id).getPersona_id().getId()));
-		return "registroCapacitaciones/mailbox_id";
+	public String mailboxById(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String date = sdf.format(new Date());
+			model.addAttribute("date", date);
+			model.addAttribute("registroCapacitacion",
+					this.registroCapacitacionService.getRegistroCapacitacionById(id));
+			model.addAttribute("listMedioComunicacion", this.medioComunicacionService.listMedioComunicacionByPersona(
+					this.registroCapacitacionService.getRegistroCapacitacionById(id).getPersona_id().getId()));
+			return "registroCapacitaciones/mailbox_id";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" session="false"%>
+	pageEncoding="UTF-8" session="true"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,16 +24,14 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h5>
-					<a href="<c:url value='/' />">Back</a>
+					<a href="<c:url value='/home' />">Back</a>
 				</h5>
-				<h2>UTTAB &#124; Centro de Atención al Sector Energético</h2>
+				<h2 class="text-center">UTTAB &#124; Centro de Atención al Sector Energético</h2>
 				<h1>
 					<span class="glyphicon glyphicon-user"></span>&nbsp;
-					<!--  <s:property value="#session['nombre']" />-->
+					${sessionScope.nombre}
 				</h1>
-				<!--  <s:url id="logoutURL" action="logout" var="logoutURL"></s:url>
-				<a href="<s:property value="#logoutURL"/>"><i
-					class="glyphicon glyphicon-log-out"></i> CERRAR SESIÓN</a>-->
+				<a href="<c:url value='/logout' />"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;CERRAR SESIÓN</a><br/><br/>
 			</div>
 		</div>
 		<div class="row">
@@ -75,7 +73,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<h3>Powered by Spring MVC 4 & Hibernate 5</h3>
+				<h3 class="text-center">Powered by Spring MVC 4 & Hibernate 5</h3>
 			</div>
 		</div>
 	</div>

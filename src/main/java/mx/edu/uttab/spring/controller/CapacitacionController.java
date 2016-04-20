@@ -5,6 +5,9 @@
  */
 package mx.edu.uttab.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -36,46 +39,73 @@ public class CapacitacionController {
 	}
 
 	@RequestMapping(value = "/capacitaciones", method = RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("listCapacitacion", this.capacitacionService.listCapacitacion());
-		return "capacitaciones/index";
+	public String index(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("listCapacitacion", this.capacitacionService.listCapacitacion());
+			return "capacitaciones/index";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/capacitaciones/new", method = RequestMethod.GET)
-	public String create(Model model) {
-		model.addAttribute("capacitacion", new Capacitacion());
-		model.addAttribute("listTipoCapacitacion", this.tipoCapacitacionService.listTipoCapacitacion());
-		return "capacitaciones/create";
+	public String create(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("capacitacion", new Capacitacion());
+			model.addAttribute("listTipoCapacitacion", this.tipoCapacitacionService.listTipoCapacitacion());
+			return "capacitaciones/create";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/capacitaciones/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("capacitacion") Capacitacion c) {
+	public String store(@ModelAttribute("capacitacion") Capacitacion c, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			if (c.getId() == 0) {
+				// new person, add it
+				this.capacitacionService.addCapacitacion(c);
+				;
+			} else {
+				// existing person, call update
+				this.capacitacionService.updateCapacitacion(c);
+			}
 
-		if (c.getId() == 0) {
-			// new person, add it
-			this.capacitacionService.addCapacitacion(c);
-			;
+			return "redirect:/capacitaciones";
 		} else {
-			// existing person, call update
-			this.capacitacionService.updateCapacitacion(c);
+			return "redirect:/";
 		}
-
-		return "redirect:/capacitaciones";
 
 	}
 
 	@RequestMapping("/capacitaciones/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model) {
-		model.addAttribute("capacitacion", this.capacitacionService.getCapacitacionById(id));
-		model.addAttribute("listTipoCapacitacion", this.tipoCapacitacionService.listTipoCapacitacion());
-		return "capacitaciones/edit";
+	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("capacitacion", this.capacitacionService.getCapacitacionById(id));
+			model.addAttribute("listTipoCapacitacion", this.tipoCapacitacionService.listTipoCapacitacion());
+			return "capacitaciones/edit";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping("/capacitaciones/{id}/destroy")
-	public String destroy(@PathVariable("id") int id) {
-		this.capacitacionService.removeCapacitacion(id);
-		;
-		return "redirect:/capacitaciones";
+	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			this.capacitacionService.removeCapacitacion(id);
+			return "redirect:/capacitaciones";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 }

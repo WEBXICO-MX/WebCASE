@@ -5,6 +5,9 @@
  */
 package mx.edu.uttab.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -28,42 +31,69 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = "/personas", method = RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("listPersona", this.personaService.listPersona());
-		return "personas/index";
+	public String index(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("listPersona", this.personaService.listPersona());
+			return "personas/index";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/personas/new", method = RequestMethod.GET)
-	public String create(Model model) {
-		model.addAttribute("persona", new Persona());
-		return "personas/create";
+	public String create(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("persona", new Persona());
+			return "personas/create";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/personas/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("persona") Persona p) {
+	public String store(@ModelAttribute("persona") Persona p, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			if (p.getId() == 0) {
+				// new person, add it
+				this.personaService.addPersona(p);
+			} else {
+				// existing person, call update
+				this.personaService.updatePersona(p);
+			}
 
-		if (p.getId() == 0) {
-			// new person, add it
-			this.personaService.addPersona(p);
+			return "redirect:/personas";
 		} else {
-			// existing person, call update
-			this.personaService.updatePersona(p);
+			return "redirect:/";
 		}
-
-		return "redirect:/personas";
-
 	}
 
 	@RequestMapping("/personas/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model) {
-		model.addAttribute("persona", this.personaService.getPersonaById(id));
-		return "personas/edit";
+	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("persona", this.personaService.getPersonaById(id));
+			return "personas/edit";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping("/personas/{id}/destroy")
-	public String destroy(@PathVariable("id") int id) {
-		this.personaService.removePersona(id);
-		return "redirect:/personas";
+	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			this.personaService.removePersona(id);
+			return "redirect:/personas";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 }

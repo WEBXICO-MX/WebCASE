@@ -17,7 +17,7 @@
 		<a href="<c:url value='/status/new' />">New Status</a>
 	</h4>
 	<h5>
-		<a href="<c:url value='/' />">Back</a>
+		<a href="<c:url value='/home' />">Back</a>
 	</h5>
 	<c:if test="${!empty listStatus}">
 		<table class="table tg">
@@ -47,7 +47,7 @@
 		<a href="<c:url value='/status/new' />">New Status</a>
 	</h4>
 	<h5>
-		<a href="<c:url value='/' />">Back</a>
+		<a href="<c:url value='/home' />">Back</a>
 	</h5>
 </body>
 </html>

@@ -5,6 +5,9 @@
  */
 package mx.edu.uttab.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -44,46 +47,76 @@ public class MedioComunicacionController {
 	}
 
 	@RequestMapping(value = "/medioscomunicacion", method = RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("listMedioComunicacion", this.medioComunicacionService.listMedioComunicacion());
-		return "mediosComunicacion/index";
+	public String index(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("listMedioComunicacion", this.medioComunicacionService.listMedioComunicacion());
+			return "mediosComunicacion/index";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/medioscomunicacion/new", method = RequestMethod.GET)
-	public String create(Model model) {
-		model.addAttribute("medioComunicacion", new MedioComunicacion());
-		model.addAttribute("listPersona", this.personaService.listPersona());
-		model.addAttribute("listTipoMedioComunicacion", this.tipoMedioComunicacionService.listTipoMedioComunicacions());
-		return "mediosComunicacion/create";
+	public String create(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("medioComunicacion", new MedioComunicacion());
+			model.addAttribute("listPersona", this.personaService.listPersona());
+			model.addAttribute("listTipoMedioComunicacion",
+					this.tipoMedioComunicacionService.listTipoMedioComunicacions());
+			return "mediosComunicacion/create";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/medioscomunicacion/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("medioComunicacion") MedioComunicacion mc) {
+	public String store(@ModelAttribute("medioComunicacion") MedioComunicacion mc, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			if (mc.getId() == 0) {
+				// new person, add it
+				this.medioComunicacionService.addMedioComunicacion(mc);
+			} else {
+				// existing person, call update
+				this.medioComunicacionService.updateMedioComunicacion(mc);
+			}
 
-		if (mc.getId() == 0) {
-			// new person, add it
-			this.medioComunicacionService.addMedioComunicacion(mc);
+			return "redirect:/medioscomunicacion";
 		} else {
-			// existing person, call update
-			this.medioComunicacionService.updateMedioComunicacion(mc);
+			return "redirect:/";
 		}
-
-		return "redirect:/medioscomunicacion";
 
 	}
 
 	@RequestMapping("/medioscomunicacion/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model) {
-		model.addAttribute("medioComunicacion", this.medioComunicacionService.getMedioComunicacionById(id));
-		model.addAttribute("listPersona", this.personaService.listPersona());
-		model.addAttribute("listTipoMedioComunicacion", this.tipoMedioComunicacionService.listTipoMedioComunicacions());
-		return "mediosComunicacion/edit";
+	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("medioComunicacion", this.medioComunicacionService.getMedioComunicacionById(id));
+			model.addAttribute("listPersona", this.personaService.listPersona());
+			model.addAttribute("listTipoMedioComunicacion",
+					this.tipoMedioComunicacionService.listTipoMedioComunicacions());
+			return "mediosComunicacion/edit";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping("/medioscomunicacion/{id}/destroy")
-	public String destroy(@PathVariable("id") int id) {
-		this.medioComunicacionService.removeMedioComunicacion(id);
-		return "redirect:/medioscomunicacion";
+	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			this.medioComunicacionService.removeMedioComunicacion(id);
+			return "redirect:/medioscomunicacion";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 }

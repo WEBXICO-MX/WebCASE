@@ -89,6 +89,10 @@ public class Persona {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
+	public String getNombreCompleto() {
+		return this.nombre + " " + this.getAp_paterno() + " " + this.getAp_paterno();
+	}
+
 	public String getSexo() {
 		return sexo;
 	}

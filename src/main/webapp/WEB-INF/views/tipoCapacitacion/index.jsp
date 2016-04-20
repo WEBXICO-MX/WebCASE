@@ -18,7 +18,7 @@
 			Capacitación</a>
 	</h4>
 	<h5>
-		<a href="<c:url value='/' />">Back</a>
+		<a href="<c:url value='/home' />">Back</a>
 	</h5>
 	<c:if test="${!empty listTipoCapacitacion}">
 		<table class="table tg">
@@ -49,7 +49,7 @@
 			Capacitación</a>
 	</h4>
 	<h5>
-		<a href="<c:url value='/' />">Back</a>
+		<a href="<c:url value='/home' />">Back</a>
 	</h5>
 </body>
 </html>

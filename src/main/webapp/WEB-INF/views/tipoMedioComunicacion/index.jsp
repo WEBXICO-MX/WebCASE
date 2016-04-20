@@ -16,7 +16,7 @@
 		<a href="<c:url value='/tiposmedioscomunicacion/new' />">New Tipo Medio de Comunicación</a>
 	</h4>
 	<h5>
-		<a href="<c:url value='/' />">Back</a>
+		<a href="<c:url value='/home' />">Back</a>
 	</h5>
 	<c:if test="${!empty listTipoMedioComunicacion}">
 		<table class="table tg">
@@ -47,7 +47,7 @@
 		<a href="<c:url value='/tiposmedioscomunicacion/new' />">New Tipo Medio de Comunicación</a>
 	</h4>
 	<h5>
-		<a href="<c:url value='/' />">Back</a>
+		<a href="<c:url value='/home' />">Back</a>
 	</h5>
 </body>
 </html>

@@ -5,6 +5,9 @@
  */
 package mx.edu.uttab.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -28,44 +31,71 @@ public class StatusController {
 	}
 
 	@RequestMapping(value = "/status", method = RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("listStatus", this.statusService.listStatuss());
-		return "status/index";
+	public String index(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("listStatus", this.statusService.listStatuss());
+			return "status/index";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/status/new", method = RequestMethod.GET)
-	public String create(Model model) {
-		model.addAttribute("status", new Status());
-		return "status/create";
+	public String create(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("status", new Status());
+			return "status/create";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/status/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("status") Status s) {
+	public String store(@ModelAttribute("status") Status s, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			if (s.getId() == 0) {
+				// new person, add it
+				this.statusService.addStatus(s);
+				;
+			} else {
+				// existing person, call update
+				this.statusService.updateStatus(s);
+			}
 
-		if (s.getId() == 0) {
-			// new person, add it
-			this.statusService.addStatus(s);
-			;
+			return "redirect:/status";
 		} else {
-			// existing person, call update
-			this.statusService.updateStatus(s);
+			return "redirect:/";
 		}
-
-		return "redirect:/status";
 
 	}
 
 	@RequestMapping("/status/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model) {
-		model.addAttribute("status", this.statusService.getStatusById(id));
-		return "status/edit";
+	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("status", this.statusService.getStatusById(id));
+			return "status/edit";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping("/status/{id}/destroy")
-	public String destroy(@PathVariable("id") int id) {
-		this.statusService.removeStatus(id);
-		;
-		return "redirect:/status";
+	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			this.statusService.removeStatus(id);
+			return "redirect:/status";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 }

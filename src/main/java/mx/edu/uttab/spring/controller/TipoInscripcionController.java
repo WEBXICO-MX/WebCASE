@@ -5,6 +5,9 @@
  */
 package mx.edu.uttab.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -28,43 +31,70 @@ public class TipoInscripcionController {
 	}
 
 	@RequestMapping(value = "/tiposinscripciones", method = RequestMethod.GET)
-	public String index(Model model) {
-		model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
-		return "tipoInscripcion/index";
+	public String index(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
+			return "tipoInscripcion/index";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/tiposinscripciones/new", method = RequestMethod.GET)
-	public String create(Model model) {
-		model.addAttribute("tipoInscripcion", new TipoInscripcion());
-		return "tipoInscripcion/create";
+	public String create(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("tipoInscripcion", new TipoInscripcion());
+			return "tipoInscripcion/create";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping(value = "/tiposinscripciones/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("tipoInscripcion") TipoInscripcion ti) {
+	public String store(@ModelAttribute("tipoInscripcion") TipoInscripcion ti, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			if (ti.getId() == 0) {
+				// new person, add it
+				this.tipoInscripcionService.addTipoInscripcion(ti);
+			} else {
+				// existing person, call update
+				this.tipoInscripcionService.updateTipoInscripcion(ti);
+			}
 
-		if (ti.getId() == 0) {
-			// new person, add it
-			this.tipoInscripcionService.addTipoInscripcion(ti);
+			return "redirect:/tiposinscripciones";
 		} else {
-			// existing person, call update
-			this.tipoInscripcionService.updateTipoInscripcion(ti);
+			return "redirect:/";
 		}
-
-		return "redirect:/tiposinscripciones";
 
 	}
 
 	@RequestMapping("/tiposinscripciones/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model) {
-		model.addAttribute("tipoInscripcion", this.tipoInscripcionService.getTipoInscripcionById(id));
-		return "tipoInscripcion/edit";
+	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			model.addAttribute("tipoInscripcion", this.tipoInscripcionService.getTipoInscripcionById(id));
+			return "tipoInscripcion/edit";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 	@RequestMapping("/tiposinscripciones/{id}/destroy")
-	public String destroy(@PathVariable("id") int id) {
-		this.tipoInscripcionService.removeTipoInscripcion(id);
-		;
-		return "redirect:/tiposinscripciones";
+	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
+			this.tipoInscripcionService.removeTipoInscripcion(id);
+			return "redirect:/tiposinscripciones";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 }
