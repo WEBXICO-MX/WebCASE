@@ -59,7 +59,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	@Override
 	public Usuario getUsuarioByLoginPassword(String login, String password) {
 		Session session = this.sessionFactory.getCurrentSession();
-		String sql = "from Usuario where login = :login and password = :password";
+		String sql = "from Usuario where login = :login and password = :password and activo = 1";
 		Query q = session.createQuery(sql);
 		q.setString("login", login);
 		q.setString("password", password);
