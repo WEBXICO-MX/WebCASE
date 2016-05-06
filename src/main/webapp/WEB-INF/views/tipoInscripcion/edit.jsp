@@ -1,57 +1,79 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8" session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" session="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<spring:url
+	value="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css"
+	var="bootstrapCSS" />
+<spring:url
+	value="/resources/bower_components/jquery/dist/jquery.min.js"
+	var="jquery" />
+<spring:url
+	value="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"
+	var="bootstrap" />
+<spring:url
+	value="/resources/css/case.css"
+	var="caseCSS" />	
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title>Tipo(s) Inscripcion(es) | Edit</title>
+<title>UTTAB &#124; Centro de Atención al Sector Energético |
+	Tipo(s) Inscripcion(es) | Edit</title>
 <meta charset="UTF-8">
-<spring:url value="/resources/css/case.css" var="caseCSS" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="${bootstrapCSS}" rel="stylesheet" />
 <link href="${caseCSS}" rel="stylesheet" />
 </head>
 <body>
-	<h1>Edit a TipoInscripcion</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<a href="<c:url value='/tiposinscripciones' />"
+					class="btn btn-primary"><span
+					class="glyphicon glyphicon-chevron-left"></span> Back</a><br />
+				<h3 class="text-center">Tipo(s) Inscripcion(es)</h3>
 
-	<c:url var="addAction" value="/tiposinscripciones/create"></c:url>
+				<c:url var="addAction" value="/tiposinscripciones/create"></c:url>
 
-	<form:form action="${addAction}" commandName="tipoInscripcion">
-		<table>
-			<c:if test="${!empty tipoInscripcion.nombre}">
-				<tr>
-					<td><form:label path="id">
-							<spring:message text="ID" />
-						</form:label></td>
-					<td><form:input path="id" readonly="true" size="8"
-							disabled="true" /> <form:hidden path="id" /></td>
-				</tr>
-			</c:if>
-			<tr>
-				<td><form:label path="nombre">
-						<spring:message text="Nombre" />
-					</form:label></td>
-				<td><form:input path="nombre" /></td>
-			</tr>
-			<tr>
-				<td><form:label path="activo">
-						<spring:message text="Activo" />
-					</form:label></td>
+				<form:form action="${addAction}" commandName="tipoInscripcion"
+					role="form">
+					<div class="form-group">
+						<form:label path="id"><spring:message text="ID" /></form:label>
+						<form:input path="id" readonly="true" size="8" disabled="true" cssClass="form-control"/> <form:hidden path="id" />
+					</div>
+					<div class="form-group">
+						<form:label path="nombre">
+							<spring:message text="Nombre" />
+						</form:label>
+						<form:input path="nombre" cssClass="form-control" />
+					</div>
+					<div class="checkbox">
+						<label><form:checkbox path="activo" />¿Activo?</label>
+					</div>
+					<span class="icon-input-btn"><span
+						class="glyphicon glyphicon-floppy-disk"></span> <input
+						type="submit" value="<spring:message text="Guardar"/>"
+						class="btn btn-lg btn-success"></input> </span>
+				</form:form>
+			</div>
+		</div>
+	</div>
+	<script src="${jquery}"></script>
+	<script src="${bootstrap}"></script>
+	<script>
+		$(document).ready(function() {
+			$(".icon-input-btn").each(function() {
+				var btnFont = $(this).find(".btn").css("font-size");
+				var btnColor = $(this).find(".btn").css("color");
+				$(this).find(".glyphicon").css("font-size", btnFont);
+				$(this).find(".glyphicon").css("color", btnColor);
+				if ($(this).find(".btn-xs").length) {
+					$(this).find(".glyphicon").css("top", "24%");
+				}
+			});
 
-				<td><form:checkbox path="activo" /></td>
-			</tr>
-			<tr>
-				<td colspan="2"><c:if test="${!empty tipoInscripcion.nombre}">
-						<input type="submit"
-							value="<spring:message text="Edit TipoInscripcion"/>" />
-					</c:if> <c:if test="${empty tipoInscripcion.nombre}">
-						<input type="submit"
-							value="<spring:message text="Add TipoInscripcion"/>" />
-					</c:if></td>
-			</tr>
-		</table>
-	</form:form>
-	<h5>
-		<a href="<c:url value='/tiposinscripciones' />">Back</a>
-	</h5>
+		});
+	</script>
 </body>
 </html>

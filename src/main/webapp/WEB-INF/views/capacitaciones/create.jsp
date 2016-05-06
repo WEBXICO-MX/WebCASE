@@ -15,6 +15,9 @@
 <spring:url
 	value="/resources/bower_components/ckeditor/ckeditor.js"
 	var="ckeditor" />
+<spring:url
+	value="/resources/css/case.css"
+	var="caseCSS" />	
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,23 +27,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${bootstrapCSS}" rel="stylesheet" />
 <link href="${caseCSS}" rel="stylesheet" />
-<style>
-.icon-input-btn {
-	display: inline-block;
-	position: relative;
-}
-
-.icon-input-btn input[type="submit"] {
-	padding-left: 2em;
-}
-
-.icon-input-btn .glyphicon {
-	display: inline-block;
-	position: absolute;
-	left: 0.65em;
-	top: 30%;
-}
-</style>
 </head>
 <body>
 	<div class="container">
@@ -50,8 +36,7 @@
 					class="glyphicon glyphicon-chevron-left"></span> Back</a><br />
 				<h3 class="text-center">Capacitación</h3>
 				<c:url var="addAction" value="/capacitaciones/create"></c:url>
-				<form:form action="${addAction}" commandName="capacitacion"
-					role="form" name="frmDocumentacion" id="frmDocumentacion">
+				<form:form action="${addAction}" commandName="capacitacion" role="form">
 					<div class="form-group">
 						<form:label path="nombre">
 							<spring:message text="Nombre" />
@@ -78,7 +63,7 @@
 						</form:select>
 					</div>
 					<div class="checkbox">
-						<label><form:checkbox path="activo" /> ¿Activo?:</label>
+						<label><form:checkbox path="activo" /> ¿Activo?</label>
 					</div>
 					<span class="icon-input-btn"><span
 							class="glyphicon glyphicon-floppy-disk"></span> 

@@ -14,7 +14,10 @@
 	var="bootstrap" />
 <spring:url
 	value="/resources/bower_components/ckeditor/ckeditor.js"
-	var="ckeditor" />	
+	var="ckeditor" />
+<spring:url
+	value="/resources/css/case.css"
+	var="caseCSS" />		
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,23 +26,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${bootstrapCSS}" rel="stylesheet" />
 <link href="${caseCSS}" rel="stylesheet" />
-<style>
-.icon-input-btn {
-	display: inline-block;
-	position: relative;
-}
-
-.icon-input-btn input[type="submit"] {
-	padding-left: 2em;
-}
-
-.icon-input-btn .glyphicon {
-	display: inline-block;
-	position: absolute;
-	left: 0.65em;
-	top: 30%;
-}
-</style>
 </head>
 <body>
 	<div class="container">
