@@ -12,6 +12,9 @@
 <spring:url
 	value="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"
 	var="bootstrap" />
+<spring:url
+	value="/resources/bower_components/ckeditor/ckeditor.js"
+	var="ckeditor" />	
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -42,7 +45,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
-				<a href="<c:url value='/home' />" class="btn btn-primary"><span
+				<a href="<c:url value='/capacitaciones' />" class="btn btn-primary"><span
 					class="glyphicon glyphicon-chevron-left"></span> Back</a><br />
 				<h3 class="text-center">Capacitación</h3>
 				<c:url var="addAction" value="/capacitaciones/create"></c:url>
@@ -68,7 +71,7 @@
 							<spring:message text="Descripción" />
 						</form:label>
 						<form:textarea path="descripcion" cols="70" rows="20"
-							class="form-control" />
+							class="form-control" id="txtDescripcion"/>
 					</div>
 					<div class="form-group">
 						<form:label path="tipo_capacitacion_id">
@@ -103,6 +106,7 @@
 		</div>
 	</div>
 	<script src="${jquery}"></script>
+	<script src="${ckeditor}"></script>
 	<script src="${bootstrap}"></script>
 		<script>
 		$(document).ready(function() {
@@ -115,6 +119,9 @@
 					$(this).find(".glyphicon").css("top", "24%");
 				}
 			});
+			
+			CKEDITOR.replace("txtDescripcion");
+			
 		});
 	</script>
 </body>
