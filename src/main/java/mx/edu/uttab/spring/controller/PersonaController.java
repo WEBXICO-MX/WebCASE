@@ -5,7 +5,6 @@
  */
 package mx.edu.uttab.spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,7 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = "/personas", method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String index(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("listPersona", this.personaService.listPersona());
 			return "personas/index";
@@ -43,8 +41,7 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = "/personas/new", method = RequestMethod.GET)
-	public String create(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String create(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("persona", new Persona());
 			return "personas/create";
@@ -55,8 +52,7 @@ public class PersonaController {
 	}
 
 	@RequestMapping(value = "/personas/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("persona") Persona p, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String store(@ModelAttribute("persona") Persona p, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			if (p.getId() == 0) {
 				// new person, add it
@@ -73,8 +69,7 @@ public class PersonaController {
 	}
 
 	@RequestMapping("/personas/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String edit(@PathVariable("id") int id, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("persona", this.personaService.getPersonaById(id));
 			return "personas/edit";
@@ -85,8 +80,7 @@ public class PersonaController {
 	}
 
 	@RequestMapping("/personas/{id}/destroy")
-	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String destroy(@PathVariable("id") int id, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			this.personaService.removePersona(id);
 			return "redirect:/personas";

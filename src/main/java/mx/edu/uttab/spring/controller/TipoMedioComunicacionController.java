@@ -5,7 +5,6 @@
  */
 package mx.edu.uttab.spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,7 @@ public class TipoMedioComunicacionController {
 	}
 
 	@RequestMapping(value = "/tiposmedioscomunicacion", method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String index(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("listTipoMedioComunicacion",
 					this.tipoMedioComunicacionService.listTipoMedioComunicacions());
@@ -44,8 +42,7 @@ public class TipoMedioComunicacionController {
 	}
 
 	@RequestMapping(value = "/tiposmedioscomunicacion/new", method = RequestMethod.GET)
-	public String create(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String create(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("tipoMedioComunicacion", new TipoMedioComunicacion());
 			return "tipoMedioComunicacion/create";
@@ -57,8 +54,7 @@ public class TipoMedioComunicacionController {
 
 	@RequestMapping(value = "/tiposmedioscomunicacion/create", method = RequestMethod.POST)
 	public String store(@ModelAttribute("tipoMedioComunicacion") TipoMedioComunicacion tmc,
-			HttpServletRequest request) {
-		HttpSession session = request.getSession();
+			HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			if (tmc.getId() == 0) {
 				// new person, add it
@@ -76,8 +72,7 @@ public class TipoMedioComunicacionController {
 	}
 
 	@RequestMapping("/tiposmedioscomunicacion/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String edit(@PathVariable("id") int id, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("tipoMedioComunicacion",
 					this.tipoMedioComunicacionService.getTipoMedioComunicacionById(id));
@@ -89,8 +84,7 @@ public class TipoMedioComunicacionController {
 	}
 
 	@RequestMapping("/tiposmedioscomunicacion/{id}/destroy")
-	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String destroy(@PathVariable("id") int id, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			this.tipoMedioComunicacionService.removeTipoMedioComunicacion(id);
 			return "redirect:/tiposmedioscomunicacion";

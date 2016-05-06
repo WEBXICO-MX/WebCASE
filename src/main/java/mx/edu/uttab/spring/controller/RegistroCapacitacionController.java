@@ -8,7 +8,6 @@ package mx.edu.uttab.spring.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,8 +81,7 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones", method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String index(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("listRegistroCapacitacion", this.registroCapacitacionService.listRegistroCapacitacion());
 			return "registroCapacitaciones/index";
@@ -94,8 +92,7 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/new", method = RequestMethod.GET)
-	public String create(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String create(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String date = sdf.format(new Date());
@@ -115,8 +112,7 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("registroCapacitacion") RegistroCapacitacion rc, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String store(@ModelAttribute("registroCapacitacion") RegistroCapacitacion rc, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			if (rc.getId() == 0) {
 				// new person, add it
@@ -134,8 +130,7 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping("/registroscapacitaciones/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String edit(@PathVariable("id") int id, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String date = sdf.format(new Date());
@@ -156,8 +151,7 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping("/registroscapacitaciones/{id}/destroy")
-	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String destroy(@PathVariable("id") int id, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			this.registroCapacitacionService.removeRegistroCapacitacion(id);
 			return "redirect:/registroscapacitaciones";
@@ -168,8 +162,7 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/mailbox", method = RequestMethod.GET)
-	public String mailbox(HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String mailbox(HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			return "registroCapacitaciones/mailbox";
 		} else {
@@ -179,8 +172,7 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/mailbox_ajax/{sts}", method = RequestMethod.GET)
-	public String mailboxAjax(@PathVariable("sts") int sts, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String mailboxAjax(@PathVariable("sts") int sts, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("listRegistroCapacitacion",
 					this.registroCapacitacionService.listRegistroCapacitacionByStatus(sts));
@@ -192,8 +184,7 @@ public class RegistroCapacitacionController {
 	}
 
 	@RequestMapping(value = "/registroscapacitaciones/mailbox_id/{id}", method = RequestMethod.GET)
-	public String mailboxById(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String mailboxById(@PathVariable("id") int id, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String date = sdf.format(new Date());

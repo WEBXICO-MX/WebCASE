@@ -5,7 +5,6 @@
  */
 package mx.edu.uttab.spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,7 @@ public class TipoInscripcionController {
 	}
 
 	@RequestMapping(value = "/tiposinscripciones", method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String index(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
 			return "tipoInscripcion/index";
@@ -43,8 +41,7 @@ public class TipoInscripcionController {
 	}
 
 	@RequestMapping(value = "/tiposinscripciones/new", method = RequestMethod.GET)
-	public String create(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String create(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("tipoInscripcion", new TipoInscripcion());
 			return "tipoInscripcion/create";
@@ -55,8 +52,7 @@ public class TipoInscripcionController {
 	}
 
 	@RequestMapping(value = "/tiposinscripciones/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("tipoInscripcion") TipoInscripcion ti, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String store(@ModelAttribute("tipoInscripcion") TipoInscripcion ti, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			if (ti.getId() == 0) {
 				// new person, add it
@@ -74,8 +70,7 @@ public class TipoInscripcionController {
 	}
 
 	@RequestMapping("/tiposinscripciones/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String edit(@PathVariable("id") int id, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("tipoInscripcion", this.tipoInscripcionService.getTipoInscripcionById(id));
 			return "tipoInscripcion/edit";
@@ -86,8 +81,7 @@ public class TipoInscripcionController {
 	}
 
 	@RequestMapping("/tiposinscripciones/{id}/destroy")
-	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String destroy(@PathVariable("id") int id, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			this.tipoInscripcionService.removeTipoInscripcion(id);
 			return "redirect:/tiposinscripciones";

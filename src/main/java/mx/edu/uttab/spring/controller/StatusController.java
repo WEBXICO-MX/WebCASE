@@ -5,7 +5,6 @@
  */
 package mx.edu.uttab.spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,7 @@ public class StatusController {
 	}
 
 	@RequestMapping(value = "/status", method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String index(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("listStatus", this.statusService.listStatuss());
 			return "status/index";
@@ -43,8 +41,7 @@ public class StatusController {
 	}
 
 	@RequestMapping(value = "/status/new", method = RequestMethod.GET)
-	public String create(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String create(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("status", new Status());
 			return "status/create";
@@ -55,8 +52,7 @@ public class StatusController {
 	}
 
 	@RequestMapping(value = "/status/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("status") Status s, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String store(@ModelAttribute("status") Status s, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			if (s.getId() == 0) {
 				// new person, add it
@@ -75,8 +71,7 @@ public class StatusController {
 	}
 
 	@RequestMapping("/status/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String edit(@PathVariable("id") int id, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("status", this.statusService.getStatusById(id));
 			return "status/edit";
@@ -87,8 +82,7 @@ public class StatusController {
 	}
 
 	@RequestMapping("/status/{id}/destroy")
-	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String destroy(@PathVariable("id") int id, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			this.statusService.removeStatus(id);
 			return "redirect:/status";

@@ -5,7 +5,6 @@
  */
 package mx.edu.uttab.spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,7 @@ public class TipoCapacitacionController {
 	}
 
 	@RequestMapping(value = "/tiposcapacitaciones", method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String index(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("listTipoCapacitacion", this.tipoCapacitacionService.listTipoCapacitacion());
 			return "tipoCapacitacion/index";
@@ -44,8 +42,7 @@ public class TipoCapacitacionController {
 	}
 
 	@RequestMapping(value = "/tiposcapacitaciones/new", method = RequestMethod.GET)
-	public String create(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String create(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("tipoCapacitacion", new TipoCapacitacion());
 			return "tipoCapacitacion/create";
@@ -56,8 +53,7 @@ public class TipoCapacitacionController {
 	}
 
 	@RequestMapping(value = "/tiposcapacitaciones/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("tipoCapacitacion") TipoCapacitacion tc, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String store(@ModelAttribute("tipoCapacitacion") TipoCapacitacion tc, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			if (tc.getId() == 0) {
 				// new person, add it
@@ -75,8 +71,7 @@ public class TipoCapacitacionController {
 	}
 
 	@RequestMapping("/tiposcapacitaciones/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String edit(@PathVariable("id") int id, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("tipoCapacitacion", this.tipoCapacitacionService.getTipoCapacitacionById(id));
 			return "tipoCapacitacion/edit";
@@ -87,8 +82,7 @@ public class TipoCapacitacionController {
 	}
 
 	@RequestMapping("/tiposcapacitaciones/{id}/destroy")
-	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String destroy(@PathVariable("id") int id, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			this.tipoCapacitacionService.removeTipoCapacitacion(id);
 			return "redirect:/tiposcapacitaciones";

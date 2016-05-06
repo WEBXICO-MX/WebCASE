@@ -5,7 +5,6 @@
  */
 package mx.edu.uttab.spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,7 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String form_login(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String form_login(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			return "redirect:/home";
 		} else {
@@ -41,10 +39,9 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@ModelAttribute("usuario") Usuario u, HttpServletRequest request) {
+	public String login(@ModelAttribute("usuario") Usuario u, HttpSession session) {
 		Usuario usr = this.usuarioService.getUsuarioByLoginPassword(u.getLogin(), u.getPassword());
 		if (usr != null) {
-			HttpSession session = request.getSession();
 			session.setAttribute("cve_usuario", usr.getId());
 			session.setAttribute("nombre", usr.getNombre());
 
@@ -55,15 +52,13 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String logout(Model model, HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/usuarios", method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String index(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("listUsuario", this.usuarioService.listUsuarios());
 			return "usuarios/index";
@@ -74,8 +69,7 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/usuarios/new", method = RequestMethod.GET)
-	public String create(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String create(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("usuario", new Usuario());
 			return "usuarios/create";
@@ -86,8 +80,7 @@ public class UsuarioController {
 	}
 
 	@RequestMapping(value = "/usuarios/create", method = RequestMethod.POST)
-	public String store(@ModelAttribute("usuario") Usuario u, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String store(@ModelAttribute("usuario") Usuario u, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			if (u.getId() == 0) {
 				// new person, add it
@@ -104,8 +97,7 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/usuarios/{id}/edit")
-	public String edit(@PathVariable("id") int id, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String edit(@PathVariable("id") int id, Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			model.addAttribute("usuario", this.usuarioService.getUsuarioById(id));
 			return "usuarios/edit";
@@ -116,8 +108,7 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/usuarios/{id}/destroy")
-	public String destroy(@PathVariable("id") int id, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String destroy(@PathVariable("id") int id, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
 			this.usuarioService.removeUsuario(id);
 			return "redirect:/usuarios";
