@@ -43,6 +43,13 @@ public class TipoMedioComunicacionServiceImpl implements TipoMedioComunicacionSe
 
 	@Override
 	@Transactional
+	public List<TipoMedioComunicacion> listTipoMedioComunicacionByActivo(boolean activo) {
+		// TODO Auto-generated method stub
+		return this.tipoMedioComunicacionDAO.listTipoMedioComunicacionByActivo(activo);
+	}
+
+	@Override
+	@Transactional
 	public TipoMedioComunicacion getTipoMedioComunicacionById(int id) {
 		return this.tipoMedioComunicacionDAO.getTipoMedioComunicacionById(id);
 	}

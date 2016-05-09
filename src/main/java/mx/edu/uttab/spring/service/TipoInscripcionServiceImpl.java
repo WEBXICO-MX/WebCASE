@@ -43,6 +43,13 @@ public class TipoInscripcionServiceImpl implements TipoInscripcionService {
 
 	@Override
 	@Transactional
+	public List<TipoInscripcion> listTipoInscripcionsByActivo(boolean activo) {
+		// TODO Auto-generated method stub
+		return this.tipoInscripcionDAO.listTipoInscripcionByActivo(activo);
+	}
+
+	@Override
+	@Transactional
 	public TipoInscripcion getTipoInscripcionById(int id) {
 		return this.tipoInscripcionDAO.getTipoInscripcionById(id);
 	}

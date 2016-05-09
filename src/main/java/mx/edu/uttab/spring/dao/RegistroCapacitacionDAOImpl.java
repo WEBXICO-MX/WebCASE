@@ -43,7 +43,7 @@ public class RegistroCapacitacionDAOImpl implements RegistroCapacitacionDAO {
 	@Override
 	public List<RegistroCapacitacion> listRegistroCapacitacion() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<RegistroCapacitacion> RegistroCapacitacionList = session.createQuery("from RegistroCapacitacion").list();
+		List<RegistroCapacitacion> RegistroCapacitacionList = session.createQuery("from RegistroCapacitacion order by id desc").list();
 		for (RegistroCapacitacion rc : RegistroCapacitacionList) {
 			logger.info("RegistroCapacitacion List::" + rc);
 		}
@@ -53,7 +53,7 @@ public class RegistroCapacitacionDAOImpl implements RegistroCapacitacionDAO {
 	@Override
 	public List<RegistroCapacitacion> listRegistroCapacitacionByStatus(int status) {
 		Session session = this.sessionFactory.getCurrentSession();
-		String sql = "from RegistroCapacitacion where status_id.id = :status_id";
+		String sql = "from RegistroCapacitacion where status_id.id = :status_id and activo = 1 order by id desc";
 		List<RegistroCapacitacion> RegistroCapacitacionList = session.createQuery(sql).setInteger("status_id", status).list();
 		for (RegistroCapacitacion rc : RegistroCapacitacionList) {
 			logger.info("RegistroCapacitacion List::" + rc);

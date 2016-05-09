@@ -15,6 +15,8 @@ public interface EmpresaService {
 	public void updateEmpresa(Empresa e);
 
 	public List<Empresa> listEmpresa();
+	
+	public List<Empresa> listEmpresaByActivo(boolean activo);
 
 	public Empresa getEmpresaById(int id);
 

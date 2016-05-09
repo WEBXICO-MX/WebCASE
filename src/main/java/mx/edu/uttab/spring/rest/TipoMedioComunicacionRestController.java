@@ -30,8 +30,7 @@ public class TipoMedioComunicacionRestController {
 
 	@RequestMapping(value = "/rest/tiposmedioscomunicacion", method = RequestMethod.GET)
 	public ResponseEntity<List<TipoMedioComunicacion>> listAllTipoMedioComunicacions() {
-		List<TipoMedioComunicacion> listTipoMedioComunicacion = tipoMedioComunicacionService
-				.listTipoMedioComunicacions();
+		List<TipoMedioComunicacion> listTipoMedioComunicacion = tipoMedioComunicacionService.listTipoMedioComunicacionByActivo(true);
 		if (listTipoMedioComunicacion.isEmpty()) {
 			return new ResponseEntity<List<TipoMedioComunicacion>>(HttpStatus.NO_CONTENT);
 		}

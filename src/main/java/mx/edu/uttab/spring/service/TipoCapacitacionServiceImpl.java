@@ -44,6 +44,13 @@ public class TipoCapacitacionServiceImpl implements TipoCapacitacionService {
 
 	@Override
 	@Transactional
+	public List<TipoCapacitacion> listTipoCapacitacionByActivo(boolean activo) {
+		// TODO Auto-generated method stub
+		return this.tipoCapacitacionDAO.listTipoCapacitacionByActivo(activo);
+	}
+
+	@Override
+	@Transactional
 	public TipoCapacitacion getTipoCapacitacionById(int id) {
 		return this.tipoCapacitacionDAO.getTipoCapacitacionById(id);
 	}

@@ -44,6 +44,13 @@ public class SectorProductivoServiceImpl implements SectorProductivoService {
 
 	@Override
 	@Transactional
+	public List<SectorProductivo> listSectorProductivosByActivo(boolean activo) {
+		// TODO Auto-generated method stub
+		return this.sectorProductivoDAO.listSectorProductivosByActivo(activo);
+	}
+
+	@Override
+	@Transactional
 	public SectorProductivo getSectorProductivoById(int id) {
 		return this.sectorProductivoDAO.getSectorProductivoById(id);
 	}

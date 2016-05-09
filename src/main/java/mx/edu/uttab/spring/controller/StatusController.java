@@ -32,7 +32,7 @@ public class StatusController {
 	@RequestMapping(value = "/status", method = RequestMethod.GET)
 	public String index(Model model, HttpSession session) {
 		if (session.getAttribute("nombre") != null && session.getAttribute("cve_usuario") != null) {
-			model.addAttribute("listStatus", this.statusService.listStatuss());
+			model.addAttribute("listStatus", this.statusService.listStatus());
 			return "status/index";
 		} else {
 			return "redirect:/";

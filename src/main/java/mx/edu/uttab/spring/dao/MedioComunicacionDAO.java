@@ -18,6 +18,8 @@ public interface MedioComunicacionDAO {
 
 	public MedioComunicacion getMedioComunicacionById(int id);
 
+	public List<MedioComunicacion> listMedioComunicacionByActivo(boolean activo);
+
 	public List<MedioComunicacion> listMedioComunicacionByPersona(int persona_id);
 
 	public void removeMedioComunicacion(int id);

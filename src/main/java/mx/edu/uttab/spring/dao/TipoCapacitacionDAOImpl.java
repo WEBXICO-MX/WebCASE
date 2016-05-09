@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -46,6 +47,17 @@ public class TipoCapacitacionDAOImpl implements TipoCapacitacionDAO {
 	public List<TipoCapacitacion> listTipoCapacitacion() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<TipoCapacitacion> TipoCapacitacionList = session.createQuery("from TipoCapacitacion order by id desc").list();
+		logger.info("TipoCapacitacionList size : " + TipoCapacitacionList.size());
+		return TipoCapacitacionList;
+	}
+
+	@Override
+	public List<TipoCapacitacion> listTipoCapacitacionByActivo(boolean activo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from TipoCapacitacion where activo = :activo order by nombre";
+		Query q = session.createQuery(sql);
+		q.setBoolean("activo", activo);
+		List<TipoCapacitacion> TipoCapacitacionList = q.list();
 		logger.info("TipoCapacitacionList size : " + TipoCapacitacionList.size());
 		return TipoCapacitacionList;
 	}

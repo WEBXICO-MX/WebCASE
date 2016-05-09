@@ -30,7 +30,7 @@ public class TipoInscripcionRestController {
 
 	@RequestMapping(value = "/rest/tiposinscripciones", method = RequestMethod.GET)
 	public ResponseEntity<List<TipoInscripcion>> listAllTipoInscripcions() {
-		List<TipoInscripcion> listTipoInscripcion = tipoInscripcionService.listTipoInscripcions();
+		List<TipoInscripcion> listTipoInscripcion = tipoInscripcionService.listTipoInscripcionsByActivo(true);
 		if (listTipoInscripcion.isEmpty()) {
 			return new ResponseEntity<List<TipoInscripcion>>(HttpStatus.NO_CONTENT);
 		}

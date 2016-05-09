@@ -15,6 +15,8 @@ public interface TipoInscripcionDAO {
 	public void updateTipoInscripcion(TipoInscripcion ti);
 
 	public List<TipoInscripcion> listTipoInscripcion();
+	
+	public List<TipoInscripcion> listTipoInscripcionByActivo(boolean activo);
 
 	public TipoInscripcion getTipoInscripcionById(int id);
 

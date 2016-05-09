@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -44,10 +45,17 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 	@Override
 	public List<Empresa> listEmpresa() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Empresa> EmpresaList = session.createQuery("from Empresa").list();
-		for (Empresa sp : EmpresaList) {
-			logger.info("Empresa List::" + sp);
-		}
+		List<Empresa> EmpresaList = session.createQuery("from Empresa order by id desc").list();
+		return EmpresaList;
+	}
+
+	@Override
+	public List<Empresa> listEmpresaByActivo(boolean activo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from Empresa where activo = :activo order by nombre";
+		Query q = session.createQuery(sql);
+		q.setBoolean("activo", activo);
+		List<Empresa> EmpresaList = q.list();
 		return EmpresaList;
 	}
 

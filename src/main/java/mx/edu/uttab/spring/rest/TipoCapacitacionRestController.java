@@ -30,7 +30,7 @@ public class TipoCapacitacionRestController {
 
 	@RequestMapping(value = "/rest/tiposcapacitaciones", method = RequestMethod.GET)
 	public ResponseEntity<List<TipoCapacitacion>> listAllTipoCapacitacions() {
-		List<TipoCapacitacion> listTipoCapacitacion = tipoCapacitacionService.listTipoCapacitacion();
+		List<TipoCapacitacion> listTipoCapacitacion = tipoCapacitacionService.listTipoCapacitacionByActivo(true);
 		if (listTipoCapacitacion.isEmpty()) {
 			return new ResponseEntity<List<TipoCapacitacion>>(HttpStatus.NO_CONTENT);
 		}

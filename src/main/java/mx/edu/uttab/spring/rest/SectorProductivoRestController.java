@@ -30,7 +30,7 @@ public class SectorProductivoRestController {
 
 	@RequestMapping(value = "/rest/sectoresproductivos", method = RequestMethod.GET)
 	public ResponseEntity<List<SectorProductivo>> listAllSectorProductivos() {
-		List<SectorProductivo> listSectorProductivo = sectorProductivoService.listSectorProductivos();
+		List<SectorProductivo> listSectorProductivo = sectorProductivoService.listSectorProductivosByActivo(true);
 		if (listSectorProductivo.isEmpty()) {
 			return new ResponseEntity<List<SectorProductivo>>(HttpStatus.NO_CONTENT);
 		}

@@ -17,6 +17,8 @@ public interface MedioComunicacionService {
 	public List<MedioComunicacion> listMedioComunicacion();
 
 	public List<MedioComunicacion> listMedioComunicacionByPersona(int persona_id);
+	
+	public List<MedioComunicacion> listMedioComunicacionByActivo(boolean activo);
 
 	public MedioComunicacion getMedioComunicacionById(int id);
 

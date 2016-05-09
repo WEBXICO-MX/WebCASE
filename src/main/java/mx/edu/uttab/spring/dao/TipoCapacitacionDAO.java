@@ -11,8 +11,14 @@ import mx.edu.uttab.spring.model.TipoCapacitacion;
 
 public interface TipoCapacitacionDAO {
 	public void addTipoCapacitacion(TipoCapacitacion tc);
+
 	public void updateTipoCapacitacion(TipoCapacitacion tc);
+
 	public List<TipoCapacitacion> listTipoCapacitacion();
+	
+	public List<TipoCapacitacion> listTipoCapacitacionByActivo(boolean activo);
+
 	public TipoCapacitacion getTipoCapacitacionById(int id);
+
 	public void removeTipoCapacitacion(int id);
 }

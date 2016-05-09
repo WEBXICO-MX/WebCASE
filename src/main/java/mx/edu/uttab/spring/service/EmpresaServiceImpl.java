@@ -43,6 +43,12 @@ public class EmpresaServiceImpl implements EmpresaService {
 	}
 
 	@Override
+	public List<Empresa> listEmpresaByActivo(boolean activo) {
+		// TODO Auto-generated method stub
+		return this.empresaDAO.listEmpresaByActivo(activo);
+	}
+
+	@Override
 	@Transactional
 	public Empresa getEmpresaById(int id) {
 		// TODO Auto-generated method stub

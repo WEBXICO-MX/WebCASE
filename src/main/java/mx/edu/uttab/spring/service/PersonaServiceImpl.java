@@ -41,6 +41,13 @@ public class PersonaServiceImpl implements PersonaService {
 
 	@Override
 	@Transactional
+	public List<Persona> listPersonaByActivo(boolean activo) {
+		// TODO Auto-generated method stub
+		return this.personaDAO.listPersonaByActivo(activo);
+	}
+
+	@Override
+	@Transactional
 	public Persona getPersonaById(int id) {
 		return this.personaDAO.getPersonaById(id);
 	}

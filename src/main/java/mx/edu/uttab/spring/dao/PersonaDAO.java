@@ -15,6 +15,8 @@ public interface PersonaDAO {
 	public void updatePersona(Persona p);
 
 	public List<Persona> listPersona();
+	
+	public List<Persona> listPersonaByActivo(boolean activo);
 
 	public Persona getPersonaById(int id);
 

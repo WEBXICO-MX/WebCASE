@@ -33,7 +33,7 @@ public class EmpresaRestController {
 
 	@RequestMapping(value = "/rest/empresas", method = RequestMethod.GET)
 	public ResponseEntity<List<Empresa>> listAllEmpresas() {
-		List<Empresa> listEmpresa = empresaService.listEmpresa();
+		List<Empresa> listEmpresa = empresaService.listEmpresaByActivo(true);
 		if (listEmpresa.isEmpty()) {
 			return new ResponseEntity<List<Empresa>>(HttpStatus.NO_CONTENT);
 		}

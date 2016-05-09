@@ -15,6 +15,8 @@ public interface TipoMedioComunicacionDAO {
 	public void updateTipoMedioComunicacion(TipoMedioComunicacion tmc);
 
 	public List<TipoMedioComunicacion> listTipoMedioComunicacion();
+	
+	public List<TipoMedioComunicacion> listTipoMedioComunicacionByActivo(boolean activo);
 
 	public TipoMedioComunicacion getTipoMedioComunicacionById(int id);
 

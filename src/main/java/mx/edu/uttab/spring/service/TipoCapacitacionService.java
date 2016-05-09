@@ -15,6 +15,8 @@ public interface TipoCapacitacionService {
 	public void updateTipoCapacitacion(TipoCapacitacion tc);
 
 	public List<TipoCapacitacion> listTipoCapacitacion();
+	
+	public List<TipoCapacitacion> listTipoCapacitacionByActivo(boolean activo);
 
 	public TipoCapacitacion getTipoCapacitacionById(int id);
 

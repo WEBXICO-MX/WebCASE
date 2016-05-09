@@ -16,6 +16,8 @@ public interface TipoMedioComunicacionService {
 
 	public List<TipoMedioComunicacion> listTipoMedioComunicacions();
 
+	public List<TipoMedioComunicacion> listTipoMedioComunicacionByActivo(boolean activo);
+
 	public TipoMedioComunicacion getTipoMedioComunicacionById(int id);
 
 	public void removeTipoMedioComunicacion(int id);

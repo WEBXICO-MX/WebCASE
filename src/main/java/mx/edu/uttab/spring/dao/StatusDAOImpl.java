@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -41,9 +42,19 @@ public class StatusDAOImpl implements StatusDAO {
 	}
 
 	@Override
-	public List<Status> listStatuss() {
+	public List<Status> listStatus() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Status> listStatus = session.createQuery("from Status").list();
+		List<Status> listStatus = session.createQuery("from Status order by id desc").list();
+		return listStatus;
+	}
+
+	@Override
+	public List<Status> listStatusByActivo(boolean activo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from Status where activo = :activo order by nombre";
+		Query q = session.createQuery(sql);
+		q.setBoolean("activo", activo);
+		List<Status> listStatus = q.list();
 		return listStatus;
 	}
 

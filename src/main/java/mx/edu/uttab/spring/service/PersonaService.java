@@ -16,6 +16,8 @@ public interface PersonaService {
 
 	public List<Persona> listPersona();
 
+	public List<Persona> listPersonaByActivo(boolean activo);
+
 	public Persona getPersonaById(int id);
 
 	public void removePersona(int id);

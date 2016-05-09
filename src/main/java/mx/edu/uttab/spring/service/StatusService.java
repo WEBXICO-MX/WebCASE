@@ -14,7 +14,9 @@ public interface StatusService {
 
 	public void updateStatus(Status s);
 
-	public List<Status> listStatuss();
+	public List<Status> listStatus();
+
+	public List<Status> listStatusByActivo(boolean activo);
 
 	public Status getStatusById(int id);
 

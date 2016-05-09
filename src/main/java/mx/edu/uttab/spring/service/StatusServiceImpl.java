@@ -37,8 +37,15 @@ public class StatusServiceImpl implements StatusService {
 
 	@Override
 	@Transactional
-	public List<Status> listStatuss() {
-		return this.statusDAO.listStatuss();
+	public List<Status> listStatus() {
+		return this.statusDAO.listStatus();
+	}
+
+	@Override
+	@Transactional
+	public List<Status> listStatusByActivo(boolean activo) {
+		// TODO Auto-generated method stub
+		return this.statusDAO.listStatusByActivo(activo);
 	}
 
 	@Override

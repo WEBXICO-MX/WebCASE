@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -44,7 +45,19 @@ public class TipoInscripcionDAOImpl implements TipoInscripcionDAO {
 	@Override
 	public List<TipoInscripcion> listTipoInscripcion() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<TipoInscripcion> listTipoInscripcion = session.createQuery("from TipoInscripcion").list();
+		List<TipoInscripcion> listTipoInscripcion = session.createQuery("from TipoInscripcion order by id desc").list();
+		logger.info("listTipoInscripcion size: " + listTipoInscripcion.size());
+		return listTipoInscripcion;
+	}
+
+
+	@Override
+	public List<TipoInscripcion> listTipoInscripcionByActivo(boolean activo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from TipoInscripcion where activo = :activo order by nombre";
+		Query q = session.createQuery(sql);
+		q.setBoolean("activo", activo);
+		List<TipoInscripcion> listTipoInscripcion = q.list();
 		logger.info("listTipoInscripcion size: " + listTipoInscripcion.size());
 		return listTipoInscripcion;
 	}

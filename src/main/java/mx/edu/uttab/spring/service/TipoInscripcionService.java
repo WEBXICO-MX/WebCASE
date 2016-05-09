@@ -15,6 +15,8 @@ public interface TipoInscripcionService {
 	public void updateTipoInscripcion(TipoInscripcion ti);
 
 	public List<TipoInscripcion> listTipoInscripcions();
+	
+	public List<TipoInscripcion> listTipoInscripcionsByActivo(boolean activo);
 
 	public TipoInscripcion getTipoInscripcionById(int id);
 

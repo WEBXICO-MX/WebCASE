@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -43,7 +44,18 @@ public class TipoMedioComunicacionDAOImpl implements TipoMedioComunicacionDAO {
 	@Override
 	public List<TipoMedioComunicacion> listTipoMedioComunicacion() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<TipoMedioComunicacion> listTipoMedioComunicacion = session.createQuery("from TipoMedioComunicacion").list();
+		List<TipoMedioComunicacion> listTipoMedioComunicacion = session.createQuery("from TipoMedioComunicacion order by id desc").list();
+		logger.info("listTipoMedioComunicacion size: " + listTipoMedioComunicacion.size());
+		return listTipoMedioComunicacion;
+	}
+
+	@Override
+	public List<TipoMedioComunicacion> listTipoMedioComunicacionByActivo(boolean activo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from TipoMedioComunicacion where activo = :activo order by nombre";
+		Query q = session.createQuery(sql);
+		q.setBoolean("activo", activo);
+		List<TipoMedioComunicacion> listTipoMedioComunicacion = q.list();
 		logger.info("listTipoMedioComunicacion size: " + listTipoMedioComunicacion.size());
 		return listTipoMedioComunicacion;
 	}

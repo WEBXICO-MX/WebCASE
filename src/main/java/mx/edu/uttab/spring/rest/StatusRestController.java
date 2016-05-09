@@ -30,7 +30,7 @@ public class StatusRestController {
 
 	@RequestMapping(value = "/rest/status", method = RequestMethod.GET)
 	public ResponseEntity<List<Status>> listAllStatuss() {
-		List<Status> listStatus = statusService.listStatuss();
+		List<Status> listStatus = statusService.listStatusByActivo(true);
 		if (listStatus.isEmpty()) {
 			return new ResponseEntity<List<Status>>(HttpStatus.NO_CONTENT);
 		}

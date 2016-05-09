@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -45,7 +46,20 @@ public class SectorProductivoImpl implements SectorProductivoDAO {
 	@Override
 	public List<SectorProductivo> listSectorProductivos() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<SectorProductivo> SectorProductivoList = session.createQuery("from SectorProductivo").list();
+		List<SectorProductivo> SectorProductivoList = session.createQuery("from SectorProductivo order by id desc").list();
+		for (SectorProductivo sp : SectorProductivoList) {
+			logger.info("SectorProductivo List::" + sp);
+		}
+		return SectorProductivoList;
+	}
+
+	@Override
+	public List<SectorProductivo> listSectorProductivosByActivo(boolean activo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from SectorProductivo where activo = :activo order by nombre";
+		Query q = session.createQuery(sql);
+		q.setBoolean("activo", activo);
+		List<SectorProductivo> SectorProductivoList = q.list();
 		for (SectorProductivo sp : SectorProductivoList) {
 			logger.info("SectorProductivo List::" + sp);
 		}

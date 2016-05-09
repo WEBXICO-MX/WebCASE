@@ -103,7 +103,7 @@ public class RegistroCapacitacionController {
 			model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
 			model.addAttribute("listPersona", this.personaService.listPersona());
 			model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
-			model.addAttribute("listStatus", this.statusService.listStatuss());
+			model.addAttribute("listStatus", this.statusService.listStatus());
 			return "registroCapacitaciones/create";
 		} else {
 			return "redirect:/";
@@ -142,7 +142,7 @@ public class RegistroCapacitacionController {
 			model.addAttribute("listTipoInscripcion", this.tipoInscripcionService.listTipoInscripcions());
 			model.addAttribute("listPersona", this.personaService.listPersona());
 			model.addAttribute("listEmpresa", this.empresaService.listEmpresa());
-			model.addAttribute("listStatus", this.statusService.listStatuss());
+			model.addAttribute("listStatus", this.statusService.listStatus());
 			return "registroCapacitaciones/edit";
 		} else {
 			return "redirect:/";

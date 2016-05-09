@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -51,8 +52,10 @@ public class CalendarioCapacitacionDAOImpl implements CalendarioCapacitacionDAO 
 	@Override
 	public List<CalendarioCapacitacion> listCalendarioCapacitacionByCapacitacion(int capacitacion_id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		String sql = "from CalendarioCapacitacion where capacitacion_id.id = :capacitacionId order by id desc";
-		List<CalendarioCapacitacion> listCalendarioCapacitacion = session.createQuery(sql).setInteger("capacitacionId", capacitacion_id).list();
+		String sql = "from CalendarioCapacitacion where capacitacion_id.id = :capacitacionId and activo = 1 order by id desc";
+		Query q = session.createQuery(sql);
+		q.setInteger("capacitacionId", capacitacion_id);
+		List<CalendarioCapacitacion> listCalendarioCapacitacion = q.list();
 		logger.info("listCalendarioCapacitacion size: " + listCalendarioCapacitacion.size());
 		return listCalendarioCapacitacion;
 	}

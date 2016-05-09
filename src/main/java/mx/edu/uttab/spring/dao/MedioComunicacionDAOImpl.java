@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -44,10 +45,7 @@ public class MedioComunicacionDAOImpl implements MedioComunicacionDAO {
 	@Override
 	public List<MedioComunicacion> listMedioComunicacion() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<MedioComunicacion> MedioComunicacionList = session.createQuery("from MedioComunicacion").list();
-		for (MedioComunicacion mc : MedioComunicacionList) {
-			logger.info("MedioComunicacion List::" + mc);
-		}
+		List<MedioComunicacion> MedioComunicacionList = session.createQuery("from MedioComunicacion order by id desc").list();
 		return MedioComunicacionList;
 	}
 
@@ -55,10 +53,19 @@ public class MedioComunicacionDAOImpl implements MedioComunicacionDAO {
 	public List<MedioComunicacion> listMedioComunicacionByPersona(int persona_id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		String sql = "from MedioComunicacion where persona_id.id = :personaId";
-		List<MedioComunicacion> MedioComunicacionList = session.createQuery(sql).setInteger("personaId", persona_id).list();
-		for (MedioComunicacion mc : MedioComunicacionList) {
-			logger.info("MedioComunicacion List::" + mc);
-		}
+		Query q = session.createQuery(sql);
+		q.setInteger("personaId", persona_id);
+		List<MedioComunicacion> MedioComunicacionList = q.list();
+		return MedioComunicacionList;
+	}
+
+	@Override
+	public List<MedioComunicacion> listMedioComunicacionByActivo(boolean activo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from MedioComunicacion where activo = :activo order by nombre";
+		Query q = session.createQuery(sql);
+		q.setBoolean("activo", activo);
+		List<MedioComunicacion> MedioComunicacionList = q.list();
 		return MedioComunicacionList;
 	}
 

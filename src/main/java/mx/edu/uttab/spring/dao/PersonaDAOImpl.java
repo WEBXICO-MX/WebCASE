@@ -7,6 +7,7 @@ package mx.edu.uttab.spring.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -44,7 +45,20 @@ public class PersonaDAOImpl implements PersonaDAO {
 	@Override
 	public List<Persona> listPersona() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Persona> PersonaList = session.createQuery("from Persona").list();
+		List<Persona> PersonaList = session.createQuery("from Persona order by id desc").list();
+		for (Persona p : PersonaList) {
+			logger.info("Persona List::" + p);
+		}
+		return PersonaList;
+	}
+
+	@Override
+	public List<Persona> listPersonaByActivo(boolean activo) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String sql = "from Persona where activo = :activo order by nombre ";
+		Query q = session.createQuery(sql);
+		q.setBoolean("activo", activo);
+		List<Persona> PersonaList = q.list();
 		for (Persona p : PersonaList) {
 			logger.info("Persona List::" + p);
 		}
@@ -69,5 +83,4 @@ public class PersonaDAOImpl implements PersonaDAO {
 		logger.info("Persona deleted successfully, Persona details=" + p);
 
 	}
-
 }
